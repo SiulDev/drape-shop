@@ -1,0 +1,7 @@
+# Variables de entorno / Credenciales secretas
+.env
+.env.local
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
