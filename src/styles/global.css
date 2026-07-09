@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/*
+  Tailwind v4: la config vive aquí, no en tailwind.config.js.
+  Estos tokens generan utilidades automáticas: bg-cream, text-ink, bg-red-drape, font-display, etc.
+*/
+@theme {
+  --color-cream: #efeada;
+  --color-cream-dark: #e2dcc7;
+  --color-ink: #14130d;
+  --color-ink-soft: #55534a;
+  --color-red-drape: #d1281c;
+  --color-card: #e8e5da;
+
+  --font-display: "Archivo Black", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+}
+
+::selection {
+  background-color: var(--color-red-drape);
+  color: white;
+}

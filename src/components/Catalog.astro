@@ -1,0 +1,50 @@
+---
+import { products, brands } from "../data/products";
+import ProductCard from "./ProductCard.astro";
+---
+<section id="catalogo" class="mx-auto max-w-5xl px-4 sm:px-6 pb-24">
+  <!-- Filter bar, referencia imagen 2 pero en pill style -->
+  <div id="filters" class="mb-6 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
+    {brands.map((brand, i) => (
+      <button
+        class:list={[
+          "filter-btn whitespace-nowrap rounded-full border px-4 py-2 font-mono text-xs transition-colors",
+          i === 0
+            ? "active bg-ink text-cream border-ink"
+            : "border-ink/15 text-ink-soft hover:border-ink hover:text-ink",
+        ]}
+        data-filter={brand}
+      >
+        {brand}
+      </button>
+    ))}
+  </div>
+
+  <div id="grid" class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+    {products.map((product) => (
+      <ProductCard product={product} />
+    ))}
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const cards = document.querySelectorAll<HTMLElement>("#grid > [data-brand]");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => {
+        b.classList.remove("active", "bg-ink", "text-cream", "border-ink");
+        b.classList.add("border-ink/15", "text-ink-soft");
+      });
+      btn.classList.add("active", "bg-ink", "text-cream", "border-ink");
+      btn.classList.remove("border-ink/15", "text-ink-soft");
+
+      const filter = btn.dataset.filter;
+      cards.forEach((card) => {
+        const show = filter === "Todo" || card.dataset.brand === filter;
+        card.style.display = show ? "" : "none";
+      });
+    });
+  });
+</script>

@@ -1,0 +1,70 @@
+---
+// Placeholder temporal: foto de modelo (Unsplash, licencia libre de uso comercial).
+//
+// PARA REEMPLAZAR CON TU PROPIA FRANELA SOBRE MODELO:
+// 1. Genera el mockup en mockey.ai (o Placeit/Mediamodifier) subiendo el PNG
+//    de tu estampado sobre una plantilla de modelo real, fondo neutro.
+// 2. Descarga el resultado y guárdalo como /public/images/hero-model.jpg
+// 3. Cambia la línea de abajo a:
+//      const heroImage = "/images/hero-model.jpg";
+//
+// Specs recomendadas para que encaje igual de bien en el marco:
+//   - Aspect ratio 4:5 (retrato), mínimo 1200x1500px
+//   - Sujeto centrado o ligeramente a la izquierda (deja aire abajo-izq para el sello)
+//   - Fondo neutro/desenfocado para que combine con la paleta crema/negro
+const heroImage =
+  "https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200&auto=format&fit=crop&crop=faces&h=1500";
+---
+<section class="relative mx-auto max-w-5xl px-4 sm:px-6 pt-16 pb-24">
+  <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+    <!-- Copy -->
+    <div>
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-red-drape flex items-center gap-2 mb-5">
+        <span class="w-5 h-px bg-red-drape"></span>
+        Catálogo · USD / Bs
+      </p>
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
+        Piezas
+        <br />
+        <span class="text-transparent [-webkit-text-stroke:1.5px_#14130d]">originales.</span>
+      </h1>
+
+      <p class="mt-6 max-w-md text-ink-soft text-sm sm:text-base leading-relaxed">
+        Essentials, Corteiz, Chrome Hearts y más — seleccionadas, con stock real y
+        pedido directo por WhatsApp.
+      </p>
+
+      <!-- Tagline venezolano, reemplaza la línea roja delgada -->
+      <div class="mt-5 inline-flex items-center gap-2 rounded-full bg-red-drape/10 border border-red-drape/30 px-4 py-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-drape"></span>
+        <span class="font-mono text-xs sm:text-sm font-semibold uppercase tracking-wide text-red-drape">
+          La pinta exacta, pana 🇻🇪
+        </span>
+      </div>
+    </div>
+
+    <!-- Framed featured shot -->
+    <div class="relative">
+      <div class="rounded-3xl overflow-hidden bg-card border border-ink/10 aspect-[4/5] shadow-xl">
+        <img src={heroImage} alt="Modelo luciendo pieza DRAPE" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Badge circular, ahora como sello dentro del marco, esquina inferior izquierda -->
+      <div
+        class="absolute left-4 bottom-4 w-20 h-20 rounded-full bg-ink text-cream flex items-center justify-center text-center font-mono text-[9px] uppercase tracking-wider leading-tight p-2 shadow-lg"
+      >
+        Ver
+        <br />
+        catálogo
+      </div>
+
+      <!-- Explorar, centrado abajo del marco -->
+      <a
+        href="#catalogo"
+        class="absolute -bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-red-drape text-cream text-xs font-semibold px-5 py-2.5 shadow-lg hover:bg-ink transition-colors whitespace-nowrap"
+      >
+        Explorar catálogo ↓
+      </a>
+    </div>
+  </div>
+</section>

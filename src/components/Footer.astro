@@ -1,0 +1,44 @@
+---
+import { SITE, WHATSAPP_NUMBER } from "../config";
+
+const steps = [
+  { n: "01", title: "Escoge tu franela", text: "Filtra por marca y revisa el stock disponible." },
+  { n: "02", title: "Pide por WhatsApp", text: "El botón abre un mensaje ya armado con el nombre y precio." },
+  { n: "03", title: "Coordinamos entrega", text: "Confirmamos pago (USD o Bs) y punto de entrega o envío." },
+];
+---
+<section id="como-comprar" class="bg-ink text-cream">
+  <div class="mx-auto grid max-w-5xl grid-cols-1 gap-10 px-4 sm:px-6 py-16 sm:grid-cols-3">
+    {steps.map((s) => (
+      <div>
+        <p class="font-display text-3xl text-cream/25 mb-2">{s.n}</p>
+        <h3 class="font-mono text-xs uppercase tracking-wider text-red-drape mb-2">{s.title}</h3>
+        <p class="text-sm text-cream/70 leading-relaxed">{s.text}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<footer class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6 py-10">
+  <div class="flex items-center gap-2">
+    <img src="/images/dp-logo.png" alt={SITE.name} class="h-5 w-auto" />
+    <span class="font-display text-sm">{SITE.name}</span>
+  </div>
+  <p class="font-mono text-xs text-ink-soft">© 2026 {SITE.name} — Todos los derechos reservados</p>
+  <div class="flex gap-4 text-sm text-ink-soft">
+    <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener" class="hover:text-red-drape">WhatsApp</a>
+    <a href="#" target="_blank" rel="noopener" class="hover:text-red-drape">Instagram</a>
+  </div>
+</footer>
+
+<a
+  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+  target="_blank"
+  rel="noopener"
+  aria-label="Escríbenos por WhatsApp"
+  class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-red-drape text-cream shadow-xl shadow-red-drape/40 transition-transform hover:scale-105"
+>
+  <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2"></path>
+  </svg>
+</a>
