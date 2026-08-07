@@ -1,16 +1,13 @@
+
 export type Product = {
   slug: string;
   name: string;
   brand: string;
-  price: number; // en USD, sigue siendo la moneda base
+  price: number;
   stock: number;
   img: string;
 };
 
-// MVP: array local tipado.
-// Fase 2: reemplazar por `const { data } = await supabase.from('products').select('*')`
-// dentro de `products.astro` — el resto de componentes no cambia porque
-// consumen el mismo shape `Product[]`.
 export const products: Product[] = [
   { slug: "essentials-black", name: "Essentials Tee — Negro", brand: "Essentials", price: 35, stock: 6, img: "/images/essentials-black.jpg" },
   { slug: "essentials-white", name: "Essentials Tee — Blanco", brand: "Essentials", price: 35, stock: 4, img: "/images/essentials-white.jpg" },
