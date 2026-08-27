@@ -3,19 +3,38 @@
 // Antes estaba metida dentro de Footer.astro; la separamos porque
 // funciona mejor como paso intermedio de contexto antes de ver los precios.
 const steps = [
-  { n: "01", title: "Escoge tu franela", text: "Filtra por marca y revisa el stock disponible." },
-  { n: "02", title: "Pide por WhatsApp", text: "El botón abre un mensaje ya armado con el nombre y precio." },
-  { n: "03", title: "Coordinamos entrega", text: "Confirmamos pago (USD o Bs) y punto de entrega o envío." },
+  {
+    n: "01",
+    title: "Escoge tu franela",
+    text: "Filtra por marca y revisa el stock disponible.",
+  },
+  {
+    n: "02",
+    title: "Pide por WhatsApp",
+    text: "El botón abre un mensaje ya armado con el nombre y precio.",
+  },
+  {
+    n: "03",
+    title: "Coordinamos entrega",
+    text: "Confirmamos pago (USD o Bs) y punto de entrega o envío.",
+  },
 ];
 ---
+
 <section id="como-comprar" class="bg-ink text-cream">
-  <div class="mx-auto grid max-w-5xl grid-cols-1 gap-10 px-4 sm:px-6 py-16 sm:grid-cols-3">
-    {steps.map((s) => (
-      <div>
-        <p class="font-display text-3xl text-cream/25 mb-2">{s.n}</p>
-        <h3 class="font-mono text-xs uppercase tracking-wider text-red-drape mb-2">{s.title}</h3>
-        <p class="text-sm text-cream/70 leading-relaxed">{s.text}</p>
-      </div>
-    ))}
+  <div
+    class="mx-auto grid max-w-5xl grid-cols-1 gap-16 px-4 sm:px-6 py-16 sm:grid-cols-3"
+  >
+    {
+      steps.map((s) => (
+        <div>
+          <p class="font-display text-3xl text-cream/25 mb-2">{s.n}</p>
+          <h3 class="font-mono text-xs uppercase tracking-wider text-red-drape mb-2">
+            {s.title}
+          </h3>
+          <p class="text-sm text-cream/70 leading-relaxed">{s.text}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
