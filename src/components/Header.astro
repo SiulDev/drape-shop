@@ -13,10 +13,14 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
 
     <!-- Cada link apunta a su sección real: #catalogo y #como-comprar existen en index.astro -->
     <nav class="hidden sm:flex items-center gap-6 text-sm font-medium">
-      <a href="#como-comprar" class="hover:text-red-drape transition-colors"
+      <a
+        href="#como-comprar"
+        class="hover:text-red-drape transition-colors hover:scale-105 active:scale-95"
         >Cómo comprar</a
       >
-      <a href="#catalogo" class="hover:text-red-drape transition-colors"
+      <a
+        href="#catalogo"
+        class="hover:text-red-drape transition-colors hover:scale-105 active:scale-95"
         >Catálogo</a
       >
     </nav>
@@ -26,7 +30,7 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
       href={`https://wa.me/${WHATSAPP_NUMBER}`}
       target="_blank"
       rel="noopener"
-      class="rounded-full bg-cream px-4 py-2 text-xs font-semibold text-ink transition-colors hover:bg-red-drape hover:text-cream"
+      class="rounded-full bg-cream px-4 py-2 text-xs font-semibold text-ink transition-colors hover:bg-red-drape hover:text-cream hover:scale-105 active:scale-95"
     >
       Contacto
     </a>

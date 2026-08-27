@@ -1,11 +1,17 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
+import keystatic from '@keystatic/astro';
+import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
-// Sitio 100% estático por ahora (sin admin, sin server-side).
-// Cuando retomemos Supabase, aquí se vuelve a agregar output:'server' + adapter.
 export default defineConfig({
+  // Las integraciones de Astro
+  integrations: [
+    react(),
+    keystatic()
+  ],
+  // El motor de Tailwind v4 vive aquí ahora
   vite: {
     plugins: [tailwindcss()],
   },
+  output: 'static',
 });

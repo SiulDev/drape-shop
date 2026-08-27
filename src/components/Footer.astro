@@ -5,16 +5,12 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
 ---
 
 <footer
-  class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6 py-10"
+  class="mx-auto flex max-w-5xl flex-col items-center justify-center gap-4 px-4 py-10 text-center sm:px-6"
 >
-  <div class="flex items-center gap-2">
-    <img src="/images/dp-logo.png" alt={SITE.name} class="h-5 w-auto" />
-    <span class="font-display text-sm">{SITE.name}</span>
-  </div>
   <p class="font-mono text-xs text-ink-soft">
     © 2026 {SITE.name} — Todos los derechos reservados
   </p>
-  <div class="flex gap-4 text-sm text-ink-soft">
+  <div class="flex items-center justify-center gap-6 text-sm text-ink-soft">
     <a
       href={`https://wa.me/${WHATSAPP_NUMBER}`}
       target="_blank"

@@ -29,6 +29,14 @@ body {
   color: var(--color-ink);
 }
 
+.scrollbar-width-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-width-none::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background-color: var(--color-red-drape);
   color: white;
