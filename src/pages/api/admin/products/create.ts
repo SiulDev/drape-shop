@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { supabaseAdmin } from "../../../../lib/supabase-admin";
+import { supabase } from "../../../../lib/supabase";
 
 export const prerender = false;
 
@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const ext = imageFile.name.split(".").pop() || "jpg";
     const path = `${slug}.${ext}`;
 
-    const { error: uploadError } = await supabaseAdmin.storage
+    const { error: uploadError } = await supabase.storage
       .from("products")
       .upload(path, imageFile, { contentType: imageFile.type, upsert: true });
 
@@ -39,11 +39,11 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       return redirect(`/admin?error=${encodeURIComponent("Error subiendo imagen: " + uploadError.message)}`);
     }
 
-    const { data: publicUrl } = supabaseAdmin.storage.from("products").getPublicUrl(path);
+    const { data: publicUrl } = supabase.storage.from("products").getPublicUrl(path);
     imageUrl = publicUrl.publicUrl;
   }
 
-  const { error: insertError } = await supabaseAdmin.from("products").insert({
+  const { error: insertError } = await supabase.from("products").insert({
     slug,
     name,
     brand,

@@ -1,0 +1,23 @@
+[
+  {
+    "nombre": "Essentials Tee - Negro",
+    "tallas": "S - M - L - XL",
+    "precioUSD": 35,
+    "enStock": true,
+    "imagen": "/images/essentials-black.jpg"
+  },
+  {
+    "nombre": "Essentials Tee - Blanco",
+    "tallas": "S - M - L - XL",
+    "precioUSD": 35,
+    "enStock": true,
+    "imagen": "/images/essentials-white.jpg"
+  },
+  {
+    "nombre": "Essentials Tee - Sage",
+    "tallas": "S - M - L",
+    "precioUSD": 35,
+    "enStock": false,
+    "imagen": "/images/essentials-sage.jpg"
+  }
+]

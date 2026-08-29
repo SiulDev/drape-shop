@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { supabaseAdmin } from "../../../../lib/supabase-admin";
+import { supabase } from "../../../../lib/supabase";
 
 export const prerender = false;
 
@@ -9,10 +9,10 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const imagePath = form.get("image_path");
 
   if (imagePath) {
-    await supabaseAdmin.storage.from("products").remove([String(imagePath)]);
+    await supabase.storage.from("products").remove([String(imagePath)]);
   }
 
-  const { error } = await supabaseAdmin.from("products").delete().eq("id", id);
+  const { error } = await supabase.from("products").delete().eq("id", id);
 
   if (error) {
     return redirect(`/admin?error=${encodeURIComponent(error.message)}`);

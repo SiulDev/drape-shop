@@ -1,128 +1,37 @@
 ---
-import { products, brands } from "../data/products";
+import { supabase } from "../lib/supabase";
 import ProductCard from "./ProductCard.astro";
+
+const { data: productos, error } = await supabase.from("productos").select("*");
+
+console.log("Supabase Data:", productos);
+console.error("Supabase Error:", error);
 ---
 
-<section id="catalogo" class="mx-auto max-w-5xl px-12 sm:px-6 pt-24 pb-24">
-  <div
-    id="filters"
-    class="mb-2 flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain pb-2 scrollbar-width-none touch-pan-x"
-  >
-    {
-      brands.map((brand, i) => (
-        <button
-          class:list={[
-            "filter-btn shrink-0 snap-start whitespace-nowrap rounded-full border px-4 py-2 font-mono text-xs transition-colors",
-            i === 0
-              ? "active bg-ink text-cream border-ink"
-              : "border-ink/15 text-ink-soft hover:border-ink hover:text-ink",
-          ]}
-          data-filter={brand}
-        >
-          {brand}
-        </button>
-      ))
-    }
-  </div>
-
-  <div
-    id="filter-scrollbar"
-    class="relative mb-6 flex h-1.5 w-full rounded-full bg-ink/10 sm:hidden"
-    aria-hidden="true"
-  >
-    <span
-      id="filter-scrollbar-thumb"
-      class="absolute inset-y-0 left-0 rounded-full bg-ink/55 transition-transform"
-      style="width: 25%"></span>
-  </div>
-
+<section
+  id="catalogo"
+  class="mx-auto w-full max-w-5xl px-4 pb-24 pt-24 sm:px-6"
+>
   <div
     id="grid"
-    class="grid grid-cols-2 gap-5 sm:gap-6 md:grid-cols-3 lg:grid-cols-4"
+    class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:grid-cols-3"
   >
-    {products.map((product) => <ProductCard product={product} />)}
+    {
+      productos && productos.length > 0 ? (
+        productos.map((producto) => (
+          <ProductCard
+            enStock={producto.enStock}
+            imagen={producto.imagen}
+            nombre={producto.nombre}
+            precioUSD={producto.precioUSD}
+            tallas={producto.tallas}
+          />
+        ))
+      ) : (
+        <p class="col-span-full py-10 text-center font-bold">
+          Cargando catálogo...
+        </p>
+      )
+    }
   </div>
 </section>
-
-<script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-  const cards = document.querySelectorAll<HTMLElement>("#grid > [data-brand]");
-  const filters = document.querySelector<HTMLElement>("#filters");
-  const scrollbar = document.querySelector<HTMLElement>("#filter-scrollbar");
-  const scrollbarThumb = document.querySelector<HTMLElement>(
-    "#filter-scrollbar-thumb",
-  );
-
-  const updateFilterScrollbar = () => {
-    if (!filters || !scrollbar || !scrollbarThumb) return;
-
-    const overflow = filters.scrollWidth > filters.clientWidth;
-    scrollbar.classList.toggle("hidden", !overflow);
-    if (!overflow) return;
-
-    const visibleRatio = filters.clientWidth / filters.scrollWidth;
-    const thumbWidth = Math.max(25, visibleRatio * 100);
-    const scrollRatio =
-      filters.scrollLeft / (filters.scrollWidth - filters.clientWidth);
-    const availableTravel = 100 - thumbWidth;
-
-    scrollbarThumb.style.width = `${thumbWidth}%`;
-    scrollbarThumb.style.left = `${scrollRatio * availableTravel}%`;
-  };
-
-  filters?.addEventListener("scroll", updateFilterScrollbar, { passive: true });
-  window.addEventListener("resize", updateFilterScrollbar);
-  updateFilterScrollbar();
-
-  scrollbar?.addEventListener("pointerdown", (event) => {
-    if (!filters || !scrollbar || !scrollbarThumb) return;
-    if (event.target === scrollbarThumb) return;
-
-    const bounds = scrollbar.getBoundingClientRect();
-    const scrollRatio = (event.clientX - bounds.left) / bounds.width;
-    filters.scrollLeft =
-      scrollRatio * (filters.scrollWidth - filters.clientWidth);
-  });
-
-  let dragStartX = 0;
-  let dragStartScrollLeft = 0;
-
-  scrollbarThumb?.addEventListener("pointerdown", (event) => {
-    if (!filters) return;
-    event.preventDefault();
-    scrollbarThumb.setPointerCapture(event.pointerId);
-    dragStartX = event.clientX;
-    dragStartScrollLeft = filters.scrollLeft;
-  });
-
-  scrollbarThumb?.addEventListener("pointermove", (event) => {
-    if (!filters || !scrollbarThumb.hasPointerCapture(event.pointerId)) return;
-
-    const trackWidth = scrollbar?.clientWidth ?? 0;
-    const thumbWidth = scrollbarThumb.clientWidth;
-    const scrollableTrack = trackWidth - thumbWidth;
-    if (scrollableTrack <= 0) return;
-
-    const scrollableContent = filters.scrollWidth - filters.clientWidth;
-    filters.scrollLeft =
-      dragStartScrollLeft +
-      ((event.clientX - dragStartX) / scrollableTrack) * scrollableContent;
-  });
-
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      buttons.forEach((b) => {
-        b.classList.remove("active", "bg-ink", "text-cream", "border-ink");
-        b.classList.add("border-ink/15", "text-ink-soft");
-      });
-      btn.classList.add("active", "bg-ink", "text-cream", "border-ink");
-      btn.classList.remove("border-ink/15", "text-ink-soft");
-
-      const filter = btn.dataset.filter;
-      cards.forEach((card) => {
-        const show = filter === "Todo" || card.dataset.brand === filter;
-        card.style.display = show ? "" : "none";
-      });
-    });
-  });
-</script>

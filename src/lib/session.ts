@@ -3,6 +3,10 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 const COOKIE_NAME = "drape_admin";
 const MAX_AGE_SECONDS = 60 * 60 * 8; // 8 horas
 
+export function getSessionSecret() {
+  return import.meta.env.ADMIN_SESSION_SECRET || "";
+}
+
 function sign(value: string, secret: string) {
   return createHmac("sha256", secret).update(value).digest("hex");
 }

@@ -13,5 +13,11 @@
   },
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
+  "chat.tools.terminal.autoApprove": {
+    "/^npm install$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
   }
 }

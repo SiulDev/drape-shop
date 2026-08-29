@@ -1,5 +1,9 @@
 import type { APIRoute } from "astro";
-import { createSessionCookieValue, ADMIN_COOKIE } from "../../../lib/session";
+import {
+  createSessionCookieValue,
+  ADMIN_COOKIE,
+  getSessionSecret,
+} from "../../../lib/session";
 
 export const prerender = false;
 
@@ -11,7 +15,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return redirect("/admin/login?error=1");
   }
 
-  const cookieValue = createSessionCookieValue(import.meta.env.ADMIN_SESSION_SECRET);
+  const cookieValue = createSessionCookieValue(getSessionSecret());
   cookies.set(ADMIN_COOKIE.name, cookieValue, {
     path: "/",
     httpOnly: true,

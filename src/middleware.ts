@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { isValidSession, ADMIN_COOKIE } from "./lib/session";
+import { isValidSession, ADMIN_COOKIE, getSessionSecret } from "./lib/session";
 
 export const onRequest = defineMiddleware((context, next) => {
   const { pathname } = context.url;
@@ -8,9 +8,7 @@ export const onRequest = defineMiddleware((context, next) => {
   if (!isProtectedAdminRoute) return next();
 
   const cookie = context.cookies.get(ADMIN_COOKIE.name)?.value;
-  const secret = import.meta.env.ADMIN_SESSION_SECRET;
-
-  if (!isValidSession(cookie, secret)) {
+  if (!isValidSession(cookie, getSessionSecret())) {
     return context.redirect("/admin/login");
   }
 

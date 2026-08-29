@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { supabaseAdmin } from "../../../../lib/supabase-admin";
+import { supabase } from "../../../../lib/supabase";
 
 export const prerender = false;
 
@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     return redirect("/admin?error=Precio inválido");
   }
 
-  const { error } = await supabaseAdmin.from("products").update({ price_usd: price }).eq("id", id);
+  const { error } = await supabase.from("products").update({ price_usd: price }).eq("id", id);
 
   if (error) {
     return redirect(`/admin?error=${encodeURIComponent(error.message)}`);
