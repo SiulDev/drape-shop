@@ -15,8 +15,17 @@
   --color-red-drape: #d1281c; /* acento de marca: CTAs, precios, hover */
 
   --font-display: "Archivo Black", sans-serif; /* títulos grandes */
-  --font-body: "Space Grotesk", sans-serif; /* texto general */
+  --font-body: "Inter", "Segoe UI", sans-serif; /* texto general */
   --font-mono: "JetBrains Mono", monospace; /* precios, tags, detalles técnicos */
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 html {

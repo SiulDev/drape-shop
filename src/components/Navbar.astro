@@ -2,15 +2,18 @@
 import { SITE, WHATSAPP_NUMBER } from "../config";
 ---
 
-<header class="sticky top-4 z-50 px-4 sm:px-6">
+<header class="z-50 w-full px-4 pt-6 sm:px-6">
   <div
-    class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 rounded-full bg-ink px-4 py-3 text-cream shadow-lg shadow-ink/20 sm:flex-nowrap sm:px-5"
+    class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 rounded-full bg-black px-4 py-3 text-cream shadow-lg shadow-ink/20 sm:flex-nowrap sm:px-5"
   >
     <a href="/" class="flex shrink-0 items-center gap-2">
       <img src="/images/dp-logo.png" alt={SITE.name} class="h-6 w-auto" />
-      <span class="font-display text-sm tracking-wide">{SITE.name}</span>
+      <span class="font-display text-sm tracking-wide text-cream"
+        >{SITE.name}</span
+      >
     </a>
-    <nav class="hidden items-center gap-6 text-sm font-medium sm:flex">
+
+    <nav class="flex items-center gap-6 text-sm font-medium text-cream">
       <a href="#como-comprar" class="transition-colors hover:text-red-drape"
         >Cómo comprar</a
       >
@@ -18,8 +21,9 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
         >Catálogo</a
       >
     </nav>
+
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}`}
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola DRAPE, tengo una duda")}`}
       target="_blank"
       rel="noopener noreferrer"
       class="rounded-xl bg-cream px-3 py-2 text-xs font-semibold text-ink transition-colors hover:bg-red-drape hover:text-cream sm:px-4"

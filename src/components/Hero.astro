@@ -3,17 +3,21 @@ const heroImage =
   "https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200&auto=format&fit=crop&crop=faces&h=1500";
 ---
 
-<section class="relative mx-auto max-w-5xl px-12 sm:px-6 pt-16 pb-24">
-  <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
-    <div>
+<section
+  class="relative mx-auto w-full max-w-[1440px] px-4 pb-24 pt-16 sm:px-6 lg:px-8"
+>
+  <div
+    class="flex flex-col items-center justify-center gap-10 md:flex-row md:items-center md:justify-center md:gap-16 lg:gap-24"
+  >
+    <div class="z-0 w-full max-w-xl md:w-[55%] lg:max-w-[620px]">
       <p
-        class="font-mono text-xs uppercase tracking-[0.2em] text-red-drape flex items-center gap-2 mb-5"
+        class="mb-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-red-drape sm:text-xs"
       >
-        <span class="w-5 h-px bg-red-drape"></span>
+        <span class="h-px w-5 bg-red-drape"></span>
         Catálogo · USD / Bs
       </p>
       <h1
-        class="font-display text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight"
+        class="font-display text-5xl leading-[0.82] tracking-[-0.07em] sm:text-6xl md:text-7xl lg:text-[8rem]"
       >
         Piezas
         <br />
@@ -23,44 +27,74 @@ const heroImage =
       </h1>
 
       <p
-        class="mt-6 max-w-md text-ink-soft text-sm sm:text-base leading-relaxed"
+        class="mt-6 max-w-lg text-sm leading-relaxed text-ink-soft sm:text-base"
       >
         Essentials, Corteiz, Chrome Hearts y más — seleccionadas, con stock real
         y pedido directo por WhatsApp.
       </p>
 
-      <div
-        class="mt-5 inline-flex items-center gap-2 rounded-full bg-red-drape/10 border border-red-drape/30 px-4 py-2"
-      >
-        <span class="w-1.5 h-1.5 rounded-full bg-red-drape"></span>
-        <span
-          class="font-mono text-xs sm:text-sm font-semibold uppercase tracking-wide text-red-drape"
+      <div class="mt-6 flex flex-row flex-wrap items-center gap-3 md:gap-4">
+        <a
+          href="#catalogo"
+          class="inline-flex items-center justify-center rounded-full border-2 border-black bg-black px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-red-drape sm:px-5"
         >
-          La pinta exacta 🇻🇪
-        </span>
+          Ver colección
+        </a>
+
+        <div
+          class="inline-flex items-center gap-2 rounded-full border border-red-drape/30 bg-red-drape/10 px-3 py-2 sm:px-4"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-red-drape"></span>
+          <span
+            class="font-mono text-[9px] font-semibold uppercase tracking-wide text-red-drape sm:text-[10px]"
+          >
+            La pinta exacta 🇻🇪
+          </span>
+        </div>
       </div>
     </div>
 
-    <!-- Framed featured shot -->
-    <div class="relative">
+    <div
+      class="relative z-10 w-full max-w-md -ml-0 md:-ml-12 md:w-[45%] lg:-ml-16 lg:max-w-lg"
+    >
+      <div class="absolute -inset-4 rounded-[2rem] bg-red-drape/5 blur-2xl">
+      </div>
       <div
-        class="rounded-3xl overflow-hidden bg-card border border-ink/10 aspect-4/5 shadow-xl"
+        class="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-ink/10 bg-card shadow-[0_30px_80px_rgba(20,19,13,0.12)]"
       >
         <img
           src={heroImage}
           alt="Modelo luciendo pieza DRAPE"
-          class="w-full h-full object-cover"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
         />
       </div>
 
-      <!-- Badge circular -->
       <div
-        class="absolute left-4 bottom-4 w-20 h-20 rounded-full bg-ink text-cream flex items-center justify-center text-center font-mono text-[9px] uppercase tracking-wider leading-tight p-2 shadow-lg"
+        class="absolute bottom-4 left-4 flex h-20 w-20 items-center justify-center rounded-full bg-ink p-2 text-center font-mono text-[9px] uppercase leading-tight tracking-wider text-cream shadow-lg"
       >
         TU PROPIO
         <br />
         ESTILO
       </div>
+    </div>
+  </div>
+
+  <div
+    class="w-screen relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] mt-12 overflow-hidden border-y border-black/10 bg-black py-4 text-cream"
+  >
+    <div
+      class="flex min-w-max items-center gap-10 whitespace-nowrap py-1 font-mono text-[10px] uppercase tracking-[0.28em] sm:text-xs [animation:marquee_18s_linear_infinite]"
+    >
+      <span>DRAPE ✦ PIEZAS ORIGINALES ✦ STOCK LIMITADO ✦</span>
+      <span aria-hidden="true"
+        >DRAPE ✦ PIEZAS ORIGINALES ✦ STOCK LIMITADO ✦</span
+      >
+      <span aria-hidden="true"
+        >DRAPE ✦ PIEZAS ORIGINALES ✦ STOCK LIMITADO ✦</span
+      >
+      <span aria-hidden="true"
+        >DRAPE ✦ PIEZAS ORIGINALES ✦ STOCK LIMITADO ✦</span
+      >
     </div>
   </div>
 </section>
