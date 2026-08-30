@@ -2,10 +2,7 @@
 import { supabase } from "../lib/supabase";
 import ProductCard from "./ProductCard.astro";
 
-const { data: productos, error } = await supabase.from("productos").select("*");
-
-console.log("Supabase Data:", productos);
-console.error("Supabase Error:", error);
+const { data: productos } = await supabase.from("productos").select("*");
 ---
 
 <section
@@ -22,6 +19,7 @@ console.error("Supabase Error:", error);
           <ProductCard
             enStock={producto.enStock}
             imagen={producto.imagen}
+            imagenAtras={producto.imagenAtras || ""}
             nombre={producto.nombre}
             precioUSD={producto.precioUSD}
             tallas={producto.tallas}

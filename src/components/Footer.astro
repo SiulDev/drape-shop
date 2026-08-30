@@ -1,7 +1,5 @@
 ---
-// Footer: ya NO contiene los pasos "Cómo comprar" (ver HowToBuy.astro) --
-// esto quedó solo con marca, copyright, redes y el botón flotante de WhatsApp.
-import { SITE, WHATSAPP_NUMBER } from "../config";
+import { SITE } from "../config";
 ---
 
 <footer
@@ -10,31 +8,4 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
   <p class="font-mono text-xs text-ink-soft">
     © 2026 {SITE.name} — Todos los derechos reservados
   </p>
-  <div class="flex items-center justify-center gap-6 text-sm text-ink-soft">
-    <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}`}
-      target="_blank"
-      rel="noopener"
-      class="hover:text-red-drape"
-    >
-      WhatsApp
-    </a>
-    <a href="#" target="_blank" rel="noopener" class="hover:text-red-drape"
-      >Instagram</a
-    >
-  </div>
 </footer>
-
-<a
-  href={`https://wa.me/${WHATSAPP_NUMBER}`}
-  target="_blank"
-  rel="noopener"
-  aria-label="Escríbenos por WhatsApp"
-  class="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-red-drape text-cream shadow-xl shadow-red-drape/40 transition-transform hover:scale-105"
->
-  <svg viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-    <path
-      d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2"
-    ></path>
-  </svg>
-</a>
