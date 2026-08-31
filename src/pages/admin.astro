@@ -57,18 +57,30 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <script>
-  import { supabase } from "../lib/supabase.ts";
+  import { createClient } from "@supabase/supabase-js";
+  const supabase = createClient(
+    import.meta.env.PUBLIC_SUPABASE_URL,
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  );
 
   const form = document.getElementById("productoForm");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const adminPass = document.getElementById("adminPass");
-    const prodNombre = document.getElementById("prodNombre");
-    const prodTallas = document.getElementById("prodTallas");
-    const prodPrecio = document.getElementById("prodPrecio");
-    const prodImagen = document.getElementById("prodImagen");
+    const adminPass = document.getElementById("adminPass") as HTMLInputElement;
+    const prodNombre = document.getElementById(
+      "prodNombre",
+    ) as HTMLInputElement;
+    const prodTallas = document.getElementById(
+      "prodTallas",
+    ) as HTMLInputElement;
+    const prodPrecio = document.getElementById(
+      "prodPrecio",
+    ) as HTMLInputElement;
+    const prodImagen = document.getElementById(
+      "prodImagen",
+    ) as HTMLInputElement;
 
     if (adminPass.value !== "1234") {
       alert("Clave incorrecta");
