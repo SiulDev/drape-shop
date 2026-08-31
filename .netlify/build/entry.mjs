@@ -1,5 +1,6 @@
-import { $ as AstroError, B as PrerenderDynamicEndpointPathCollide, D as MiddlewareNoDataOrNextCalled, E as LocalsReassigned, G as SessionStorageInitError, H as ReservedSlotName, I as NoMatchingStaticPathFound, J as UnableToLoadLogger, K as SessionStorageSaveError, O as MiddlewareNotAResponse, Q as i18nNoLocaleFoundInPath, R as PageNumberParamNotFound, S as InvalidGetStaticPathsReturn, T as LocalsNotAnObject, U as ResponseSentError, W as RewriteWithBodyUsed, _ as GetStaticPathsRequired, a as CacheNotEnabled, g as GetStaticPathsInvalidRouteParam, h as GetStaticPathsExpectedParams, i as AstroResponseHeadersReassigned, m as ForbiddenRewrite, n as ActionNotFoundError, o as ClientAddressNotAvailable, q as StaticClientAddressNotAvailable, r as ActionsReturnedInvalidDataError, t as path_exports, x as InvalidGetStaticPathsEntry, z as PrerenderClientAddressNotAvailable } from "./chunks/path_Cm7drCcc.mjs";
-import { A as clientAddressSymbol, C as isRoute500, D as REDIRECT_STATUS_CODES, E as DEFAULT_404_COMPONENT, M as originPathnameSymbol, N as pipelineSymbol, O as REROUTABLE_STATUS_CODES, P as responseSentSymbol$1, S as isRoute404, T as ASTRO_GENERATOR, _ as pushDirective, a as chunkToString, b as renderEndpoint, c as isRenderTemplateResult, d as decryptString, f as generateCspDigest, g as normalizeCspResourceEntry, h as isRenderInstruction, i as renderComponent, j as fetchStateSymbol, k as appSymbol, l as renderTemplate, n as renderPage, o as createSlotValueFromString, r as renderJSX, s as renderSlotToString, u as decodeKey, v as isAstroComponentFactory, w as ASTRO_ERROR_HEADER } from "./chunks/server_CkO9ks_H.mjs";
+import { n as __reExport, t as __exportAll } from "./chunks/rolldown-runtime_BBjsoOtd.mjs";
+import { D as MiddlewareNotAResponse, E as MiddlewareNoDataOrNextCalled, F as NoMatchingStaticPathFound, G as SessionStorageSaveError, H as ResponseSentError, K as StaticClientAddressNotAvailable, L as PageNumberParamNotFound, Q as AstroError, R as PrerenderClientAddressNotAvailable, T as LocalsReassigned, U as RewriteWithBodyUsed, V as ReservedSlotName, W as SessionStorageInitError, Z as i18nNoLocaleFoundInPath, a as ClientAddressNotAvailable, b as InvalidGetStaticPathsEntry, g as GetStaticPathsRequired, h as GetStaticPathsInvalidRouteParam, i as CacheNotEnabled, m as GetStaticPathsExpectedParams, n as ActionsReturnedInvalidDataError, p as ForbiddenRewrite, q as UnableToLoadLogger, r as AstroResponseHeadersReassigned, t as ActionNotFoundError, w as LocalsNotAnObject, x as InvalidGetStaticPathsReturn, z as PrerenderDynamicEndpointPathCollide } from "./chunks/errors-data_CZ1cKz4K.mjs";
+import { A as clientAddressSymbol, C as isRoute500, D as REDIRECT_STATUS_CODES, E as DEFAULT_404_COMPONENT, M as originPathnameSymbol, N as pipelineSymbol, O as REROUTABLE_STATUS_CODES, P as responseSentSymbol$1, S as isRoute404, T as ASTRO_GENERATOR, _ as pushDirective, a as chunkToString, b as renderEndpoint, c as isRenderTemplateResult, d as decryptString, f as generateCspDigest, g as normalizeCspResourceEntry, h as isRenderInstruction, i as renderComponent, j as fetchStateSymbol, k as appSymbol, l as renderTemplate, n as renderPage, o as createSlotValueFromString, r as renderJSX, s as renderSlotToString, u as decodeKey, v as isAstroComponentFactory, w as ASTRO_ERROR_HEADER } from "./chunks/server_Ba7Kk2Ft.mjs";
 import colors from "piccolore";
 import { appendForwardSlash, collapseDuplicateLeadingSlashes, collapseDuplicateSlashes, collapseDuplicateTrailingSlashes, hasFileExtension, isInternalPath, joinPaths, prependForwardSlash, removeLeadingForwardSlash, removeTrailingForwardSlash } from "@astrojs/internal-helpers/path";
 import { parse, stringify, unflatten } from "devalue";
@@ -15,6 +16,11 @@ var ACTION_QUERY_PARAMS = {
 	actionName: "_action",
 	actionPayload: "_astroActionPayload"
 };
+//#endregion
+//#region node_modules/astro/dist/core/path.js
+var path_exports = /* @__PURE__ */ __exportAll({});
+import * as import__astrojs_internal_helpers_path from "@astrojs/internal-helpers/path";
+__reExport(path_exports, import__astrojs_internal_helpers_path);
 //#endregion
 //#region node_modules/astro/dist/actions/runtime/client.js
 var codeToStatusMap = {
@@ -130,7 +136,7 @@ function deserializeActionResult(res) {
 			"SSR": true
 		}, {
 			OS: "Windows_NT",
-			Path: "C:\\Users\\Siul\\Desktop\\drape-shop\\node_modules\\.bin;C:\\Users\\Siul\\Desktop\\node_modules\\.bin;C:\\Users\\Siul\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Program Files\\nodejs\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;c:\\Users\\Siul\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand;c:\\Users\\Siul\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\cursor\\resources\\app\\bin;C:\\Program Files\\dotnet\\;C:\\Users\\Siul\\.local\\bin;C:\\Users\\Siul\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Siul\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Siul\\AppData\\Roaming\\npm;C:\\Users\\Siul\\AppData\\Local\\Programs\\Antigravity\\bin;C:\\Users\\Siul\\AppData\\Roaming\\w64devkit-master;C:\\Program Files\\JetBrains\\CLion 2025.3.1.1\\bin;C:\\Users\\Siul\\AppData\\Local\\gitkraken\\bin;C:\\ProgramData\\Siul\\gitkraken\\bin;C:\\Users\\Siul\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin"
+			Path: "C:\\Users\\Siul\\Desktop\\drape-shop\\node_modules\\.bin;C:\\Users\\Siul\\Desktop\\drape-shop\\node_modules\\.bin;C:\\Users\\Siul\\Desktop\\node_modules\\.bin;C:\\Users\\Siul\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Program Files\\nodejs\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;C:\\Users\\Siul\\Desktop\\drape-shop\\node_modules\\.bin;C:\\Users\\Siul\\Desktop\\node_modules\\.bin;C:\\Users\\Siul\\node_modules\\.bin;C:\\Users\\node_modules\\.bin;C:\\node_modules\\.bin;C:\\Program Files\\nodejs\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;c:\\Users\\Siul\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand;c:\\Users\\Siul\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\cursor\\resources\\app\\bin;C:\\Program Files\\dotnet\\;C:\\Users\\Siul\\.local\\bin;C:\\Users\\Siul\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Siul\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Siul\\AppData\\Roaming\\npm;C:\\Users\\Siul\\AppData\\Local\\Programs\\Antigravity\\bin;C:\\Users\\Siul\\AppData\\Roaming\\w64devkit-master;C:\\Program Files\\JetBrains\\CLion 2025.3.1.1\\bin;C:\\Users\\Siul\\AppData\\Local\\gitkraken\\bin;C:\\ProgramData\\Siul\\gitkraken\\bin;C:\\Users\\Siul\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin"
 		})?.PROD) return {
 			error: ActionError.fromJson(json),
 			data: void 0
@@ -5164,10 +5170,10 @@ var renderers = [];
 		"scripts": [],
 		"styles": [],
 		"routeData": {
-			"route": "/api/admin/login",
-			"isIndex": false,
 			"type": "endpoint",
-			"pattern": "^\\/api\\/admin\\/login\\/?$",
+			"isIndex": false,
+			"route": "/api/keystatic/[...params]",
+			"pattern": "^\\/api\\/keystatic(?:\\/(.*?))?\\/?$",
 			"segments": [
 				[{
 					"content": "api",
@@ -5175,23 +5181,22 @@ var renderers = [];
 					"spread": false
 				}],
 				[{
-					"content": "admin",
+					"content": "keystatic",
 					"dynamic": false,
 					"spread": false
 				}],
 				[{
-					"content": "login",
-					"dynamic": false,
-					"spread": false
+					"content": "...params",
+					"dynamic": true,
+					"spread": true
 				}]
 			],
-			"params": [],
-			"component": "src/pages/api/admin/login.ts",
-			"pathname": "/api/admin/login",
+			"params": ["...params"],
+			"component": "node_modules/@keystatic/astro/internal/keystatic-api.js",
 			"prerender": false,
 			"fallbackRoutes": [],
 			"distURL": [],
-			"origin": "project",
+			"origin": "external",
 			"_meta": { "trailingSlash": "ignore" }
 		}
 	},
@@ -5201,227 +5206,42 @@ var renderers = [];
 		"scripts": [],
 		"styles": [],
 		"routeData": {
-			"route": "/api/admin/logout",
+			"type": "page",
 			"isIndex": false,
-			"type": "endpoint",
-			"pattern": "^\\/api\\/admin\\/logout\\/?$",
-			"segments": [
-				[{
-					"content": "api",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "admin",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "logout",
-					"dynamic": false,
-					"spread": false
-				}]
-			],
-			"params": [],
-			"component": "src/pages/api/admin/logout.ts",
-			"pathname": "/api/admin/logout",
+			"route": "/keystatic/[...params]",
+			"pattern": "^\\/keystatic(?:\\/(.*?))?\\/?$",
+			"segments": [[{
+				"content": "keystatic",
+				"dynamic": false,
+				"spread": false
+			}], [{
+				"content": "...params",
+				"dynamic": true,
+				"spread": true
+			}]],
+			"params": ["...params"],
+			"component": "node_modules/@keystatic/astro/internal/keystatic-astro-page.astro",
 			"prerender": false,
 			"fallbackRoutes": [],
 			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/api/admin/products/create",
-			"isIndex": false,
-			"type": "endpoint",
-			"pattern": "^\\/api\\/admin\\/products\\/create\\/?$",
-			"segments": [
-				[{
-					"content": "api",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "admin",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "products",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "create",
-					"dynamic": false,
-					"spread": false
-				}]
-			],
-			"params": [],
-			"component": "src/pages/api/admin/products/create.ts",
-			"pathname": "/api/admin/products/create",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/api/admin/products/delete",
-			"isIndex": false,
-			"type": "endpoint",
-			"pattern": "^\\/api\\/admin\\/products\\/delete\\/?$",
-			"segments": [
-				[{
-					"content": "api",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "admin",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "products",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "delete",
-					"dynamic": false,
-					"spread": false
-				}]
-			],
-			"params": [],
-			"component": "src/pages/api/admin/products/delete.ts",
-			"pathname": "/api/admin/products/delete",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/api/admin/products/toggle-stock",
-			"isIndex": false,
-			"type": "endpoint",
-			"pattern": "^\\/api\\/admin\\/products\\/toggle-stock\\/?$",
-			"segments": [
-				[{
-					"content": "api",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "admin",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "products",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "toggle-stock",
-					"dynamic": false,
-					"spread": false
-				}]
-			],
-			"params": [],
-			"component": "src/pages/api/admin/products/toggle-stock.ts",
-			"pathname": "/api/admin/products/toggle-stock",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
-			"_meta": { "trailingSlash": "ignore" }
-		}
-	},
-	{
-		"file": "",
-		"links": [],
-		"scripts": [],
-		"styles": [],
-		"routeData": {
-			"route": "/api/admin/products/update-price",
-			"isIndex": false,
-			"type": "endpoint",
-			"pattern": "^\\/api\\/admin\\/products\\/update-price\\/?$",
-			"segments": [
-				[{
-					"content": "api",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "admin",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "products",
-					"dynamic": false,
-					"spread": false
-				}],
-				[{
-					"content": "update-price",
-					"dynamic": false,
-					"spread": false
-				}]
-			],
-			"params": [],
-			"component": "src/pages/api/admin/products/update-price.ts",
-			"pathname": "/api/admin/products/update-price",
-			"prerender": false,
-			"fallbackRoutes": [],
-			"distURL": [],
-			"origin": "project",
+			"origin": "external",
 			"_meta": { "trailingSlash": "ignore" }
 		}
 	}
 ].map(deserializeRouteInfo);
 //#endregion
 //#region \0virtual:astro:pages
-var _page0 = () => import("./chunks/generic_BX7xH0_d.mjs");
-var _page1 = () => import("./chunks/login_D4Ib9ykH.mjs");
-var _page2 = () => import("./chunks/logout_BBAbo0yD.mjs");
-var _page3 = () => import("./chunks/create_B5hH-1X0.mjs");
-var _page4 = () => import("./chunks/delete_b_u5479E.mjs");
-var _page5 = () => import("./chunks/toggle-stock_C02GEQVr.mjs");
-var _page6 = () => import("./chunks/update-price_CqiKkY29.mjs");
+var _page0 = () => import("./chunks/generic_BLT6hITo.mjs");
+var _page1 = () => import("./chunks/keystatic-api_BlLaVN9D.mjs");
+var _page2 = () => import("./chunks/keystatic-astro-page_DNTwi5Uh.mjs");
 var pageMap = /* @__PURE__ */ new Map([
 	["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
-	["src/pages/api/admin/login.ts", _page1],
-	["src/pages/api/admin/logout.ts", _page2],
-	["src/pages/api/admin/products/create.ts", _page3],
-	["src/pages/api/admin/products/delete.ts", _page4],
-	["src/pages/api/admin/products/toggle-stock.ts", _page5],
-	["src/pages/api/admin/products/update-price.ts", _page6]
+	["node_modules/@keystatic/astro/internal/keystatic-api.js", _page1],
+	["node_modules/@keystatic/astro/internal/keystatic-astro-page.astro", _page2]
 ]);
 //#endregion
 //#region \0virtual:astro:manifest
-var _manifest = deserializeManifest({"rootDir":"file:///C:/Users/Siul/Desktop/drape-shop/","cacheDir":"file:///C:/Users/Siul/Desktop/drape-shop/node_modules/.astro/","outDir":"file:///C:/Users/Siul/Desktop/drape-shop/dist/","srcDir":"file:///C:/Users/Siul/Desktop/drape-shop/src/","publicDir":"file:///C:/Users/Siul/Desktop/drape-shop/public/","buildClientDir":"file:///C:/Users/Siul/Desktop/drape-shop/dist/","buildServerDir":"file:///C:/Users/Siul/Desktop/drape-shop/.netlify/build/","adapterName":"@astrojs/netlify","assetsDir":"_astro","routes":[{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","component":"_server-islands.astro","params":["name"],"segments":[[{"content":"_server-islands","dynamic":false,"spread":false}],[{"content":"name","dynamic":true,"spread":false}]],"pattern":"^\\/_server-islands\\/([^/]+?)\\/?$","prerender":false,"isIndex":false,"fallbackRoutes":[],"route":"/_server-islands/[name]","origin":"internal","distURL":[],"_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/_image","component":"node_modules/astro/dist/assets/endpoint/generic.js","params":[],"pathname":"/_image","pattern":"^\\/_image\\/?$","segments":[[{"content":"_image","dynamic":false,"spread":false}]],"type":"endpoint","prerender":false,"fallbackRoutes":[],"distURL":[],"isIndex":false,"origin":"internal","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/admin-secreto-drape","isIndex":false,"type":"page","pattern":"^\\/admin-secreto-drape\\/?$","segments":[[{"content":"admin-secreto-drape","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/admin-secreto-drape.astro","pathname":"/admin-secreto-drape","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/api/admin/login","isIndex":false,"type":"endpoint","pattern":"^\\/api\\/admin\\/login\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"admin","dynamic":false,"spread":false}],[{"content":"login","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/api/admin/login.ts","pathname":"/api/admin/login","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/api/admin/logout","isIndex":false,"type":"endpoint","pattern":"^\\/api\\/admin\\/logout\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"admin","dynamic":false,"spread":false}],[{"content":"logout","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/api/admin/logout.ts","pathname":"/api/admin/logout","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/api/admin/products/create","isIndex":false,"type":"endpoint","pattern":"^\\/api\\/admin\\/products\\/create\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"admin","dynamic":false,"spread":false}],[{"content":"products","dynamic":false,"spread":false}],[{"content":"create","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/api/admin/products/create.ts","pathname":"/api/admin/products/create","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/api/admin/products/delete","isIndex":false,"type":"endpoint","pattern":"^\\/api\\/admin\\/products\\/delete\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"admin","dynamic":false,"spread":false}],[{"content":"products","dynamic":false,"spread":false}],[{"content":"delete","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/api/admin/products/delete.ts","pathname":"/api/admin/products/delete","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/api/admin/products/toggle-stock","isIndex":false,"type":"endpoint","pattern":"^\\/api\\/admin\\/products\\/toggle-stock\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"admin","dynamic":false,"spread":false}],[{"content":"products","dynamic":false,"spread":false}],[{"content":"toggle-stock","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/api/admin/products/toggle-stock.ts","pathname":"/api/admin/products/toggle-stock","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/api/admin/products/update-price","isIndex":false,"type":"endpoint","pattern":"^\\/api\\/admin\\/products\\/update-price\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"admin","dynamic":false,"spread":false}],[{"content":"products","dynamic":false,"spread":false}],[{"content":"update-price","dynamic":false,"spread":false}]],"params":[],"component":"src/pages/api/admin/products/update-price.ts","pathname":"/api/admin/products/update-price","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/","isIndex":true,"type":"page","pattern":"^\\/$","segments":[],"params":[],"component":"src/pages/index.astro","pathname":"/","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}}],"serverLike":true,"middlewareMode":"classic","base":"/","trailingSlash":"ignore","compressHTML":"jsx","componentMetadata":[["C:/Users/Siul/Desktop/drape-shop/src/pages/admin-secreto-drape.astro",{"propagation":"none","containsHead":true}],["C:/Users/Siul/Desktop/drape-shop/src/pages/index.astro",{"propagation":"none","containsHead":true}]],"renderers":[],"clientDirectives":[["idle","(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value==\"object\"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};\"requestIdleCallback\"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event(\"astro:idle\"));})();"],["load","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();"],["media","(()=>{var n=(a,t)=>{let i=async()=>{await(await a())()};if(t.value){let e=matchMedia(t.value);e.matches?i():e.addEventListener(\"change\",i,{once:!0})}};(self.Astro||(self.Astro={})).media=n;window.dispatchEvent(new Event(\"astro:media\"));})();"],["only","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event(\"astro:only\"));})();"],["visible","(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value==\"object\"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event(\"astro:visible\"));})();"]],"entryModules":{"astro/entrypoints/prerender":"prerender-entry.CglQRiq9.mjs","\u0000noop-middleware":"virtual_astro_middleware.mjs","\u0000virtual:astro:server-island-manifest":"chunks/_virtual_astro_server-island-manifest_C1Q2srgE.mjs","\u0000virtual:astro:session-driver":"chunks/_virtual_astro_session-driver_UK25_e1N.mjs","\u0000virtual:astro:page:src/pages/admin-secreto-drape@_@astro":"chunks/admin-secreto-drape_U5z8d5ND.mjs","\u0000virtual:astro:page:src/pages/index@_@astro":"chunks/index_D75YfVk7.mjs","\u0000virtual:astro:actions/noop-entrypoint":"chunks/noop-entrypoint_Z3zFhrGC.mjs","@astrojs/netlify/ssr-function.js":"entry.mjs","\u0000virtual:astro:page:src/pages/api/admin/products/create@_@ts":"chunks/create_B5hH-1X0.mjs","\u0000virtual:astro:page:src/pages/api/admin/products/delete@_@ts":"chunks/delete_b_u5479E.mjs","\u0000virtual:astro:page:node_modules/astro/dist/assets/endpoint/generic@_@js":"chunks/generic_BX7xH0_d.mjs","C:/Users/Siul/Desktop/drape-shop/node_modules/@astrojs/netlify/dist/image-service.js":"chunks/image-service_D4ZGklPN.mjs","\u0000virtual:astro:page:src/pages/api/admin/login@_@ts":"chunks/login_D4Ib9ykH.mjs","\u0000virtual:astro:page:src/pages/api/admin/logout@_@ts":"chunks/logout_BBAbo0yD.mjs","\u0000virtual:astro:page:src/pages/api/admin/products/toggle-stock@_@ts":"chunks/toggle-stock_C02GEQVr.mjs","\u0000virtual:astro:page:src/pages/api/admin/products/update-price@_@ts":"chunks/update-price_CqiKkY29.mjs","C:/Users/Siul/Desktop/drape-shop/src/components/ProductCard.astro?astro&type=script&index=0&lang.ts":"_astro/ProductCard.astro_astro_type_script_index_0_lang.D181cFCk.js","C:/Users/Siul/Desktop/drape-shop/src/pages/admin-secreto-drape.astro?astro&type=script&index=0&lang.ts":"_astro/admin-secreto-drape.astro_astro_type_script_index_0_lang.kHjmtkhV.js","C:/Users/Siul/Desktop/drape-shop/src/pages/index.astro?astro&type=script&index=0&lang.ts":"_astro/index.astro_astro_type_script_index_0_lang.DclieyWZ.js","astro:scripts/before-hydration.js":""},"inlinedScripts":[["C:/Users/Siul/Desktop/drape-shop/src/components/ProductCard.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-product-image]`).forEach(e=>{let t=e.closest(`article`)?.nextElementSibling,n=t?.querySelector(`[data-modal-image]`),r=t?.querySelector(`[data-close-modal]`),i=t?.querySelectorAll(`[data-view-toggle]`);if(!t||!n)return;let a=e=>{let t=n.dataset.modalFrente,r=n.dataset.modalAtras,a=e===`atras`&&r?`atras`:`frente`;n.dataset.current=a,n.src=a===`atras`?r:t,i?.forEach(e=>{let t=e.dataset.viewToggle===a;e.classList.toggle(`bg-ink`,t),e.classList.toggle(`text-cream`,t),e.classList.toggle(`bg-white`,!t),e.classList.toggle(`text-black`,!t)})};e.addEventListener(`click`,()=>{n.src=e.dataset.imagenFrente||e.src,n.dataset.current=`frente`,a(`frente`),t.showModal()}),r?.addEventListener(`click`,()=>t.close()),i?.forEach(e=>{e.addEventListener(`click`,()=>a(e.dataset.viewToggle))}),n.addEventListener(`click`,()=>{if(!n.dataset.modalAtras)return;let e=n.dataset.current===`atras`?`frente`:`atras`;a(e)}),t.addEventListener(`click`,e=>{e.target===t&&t.close()})});"],["C:/Users/Siul/Desktop/drape-shop/src/pages/index.astro?astro&type=script&index=0&lang.ts","(async()=>{let e=document.querySelectorAll(`.precio-bs-dinamico`);try{let t=await fetch(`https://ve.dolarapi.com/v1/dolares/oficial`);if(!t.ok)throw Error(`BCV API: ${t.status}`);let{promedio:n}=await t.json();if(typeof n!=`number`)throw Error(`Tasa BCV inválida`);e.forEach(e=>{let t=Number(e.dataset.usd);e.textContent=Number.isFinite(t)?`Bs ${(t*n).toLocaleString(`es-VE`,{maximumFractionDigits:0})}`:`Bs --`})}catch(t){console.error(`No se pudo obtener la tasa del BCV`,t),e.forEach(e=>{e.textContent=`Bs --`})}})();"]],"assets":["/images/chromehearts-black-cross.jpg","/images/chromehearts-black-red.jpg","/images/chromehearts-white-pink.jpg","/images/corteiz-cream.jpg","/images/corteiz-script-white.jpg","/images/corteiz-white-outline.jpg","/images/dp-logo.png","/images/essentials-black.jpg","/images/essentials-sage.jpg","/images/essentials-sand.jpg","/images/essentials-white.jpg","/images/faith-black.jpg","/images/npc-green.jpg","/images/nudeproject-brown.jpg","/images/og-preview.svg","/_astro/admin-secreto-drape.astro_astro_type_script_index_0_lang.kHjmtkhV.js","/assets/productos/ola/imagen.jpg","/_astro/Layout.DK_ScYBh.css","/admin-secreto-drape/index.html","/index.html"],"buildFormat":"directory","checkOrigin":true,"actionBodySizeLimit":1048576,"serverIslandBodySizeLimit":1048576,"allowedDomains":[],"key":"6DKNf+P122sc7mDe+1kBF6oa0EQsJtxHaON2xPOPOkU=","sessionConfig":{"driver":"unstorage/drivers/netlify-blobs","options":{"name":"astro-sessions","consistency":"strong"}},"image":{},"devToolbar":{"enabled":false,"debugInfoOutput":""},"logLevel":"info","shouldInjectCspMetaTags":false});
+var _manifest = deserializeManifest({"rootDir":"file:///C:/Users/Siul/Desktop/drape-shop/","cacheDir":"file:///C:/Users/Siul/Desktop/drape-shop/node_modules/.astro/","outDir":"file:///C:/Users/Siul/Desktop/drape-shop/dist/","srcDir":"file:///C:/Users/Siul/Desktop/drape-shop/src/","publicDir":"file:///C:/Users/Siul/Desktop/drape-shop/public/","buildClientDir":"file:///C:/Users/Siul/Desktop/drape-shop/dist/","buildServerDir":"file:///C:/Users/Siul/Desktop/drape-shop/.netlify/build/","adapterName":"@astrojs/netlify","assetsDir":"_astro","routes":[{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","component":"_server-islands.astro","params":["name"],"segments":[[{"content":"_server-islands","dynamic":false,"spread":false}],[{"content":"name","dynamic":true,"spread":false}]],"pattern":"^\\/_server-islands\\/([^/]+?)\\/?$","prerender":false,"isIndex":false,"fallbackRoutes":[],"route":"/_server-islands/[name]","origin":"internal","distURL":[],"_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/_image","component":"node_modules/astro/dist/assets/endpoint/generic.js","params":[],"pathname":"/_image","pattern":"^\\/_image\\/?$","segments":[[{"content":"_image","dynamic":false,"spread":false}]],"type":"endpoint","prerender":false,"fallbackRoutes":[],"distURL":[],"isIndex":false,"origin":"internal","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"endpoint","isIndex":false,"route":"/api/keystatic/[...params]","pattern":"^\\/api\\/keystatic(?:\\/(.*?))?\\/?$","segments":[[{"content":"api","dynamic":false,"spread":false}],[{"content":"keystatic","dynamic":false,"spread":false}],[{"content":"...params","dynamic":true,"spread":true}]],"params":["...params"],"component":"node_modules/@keystatic/astro/internal/keystatic-api.js","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"external","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"type":"page","isIndex":false,"route":"/keystatic/[...params]","pattern":"^\\/keystatic(?:\\/(.*?))?\\/?$","segments":[[{"content":"keystatic","dynamic":false,"spread":false}],[{"content":"...params","dynamic":true,"spread":true}]],"params":["...params"],"component":"node_modules/@keystatic/astro/internal/keystatic-astro-page.astro","prerender":false,"fallbackRoutes":[],"distURL":[],"origin":"external","_meta":{"trailingSlash":"ignore"}}},{"file":"","links":[],"scripts":[],"styles":[],"routeData":{"route":"/","isIndex":true,"type":"page","pattern":"^\\/$","segments":[],"params":[],"component":"src/pages/index.astro","pathname":"/","prerender":true,"fallbackRoutes":[],"distURL":[],"origin":"project","_meta":{"trailingSlash":"ignore"}}}],"serverLike":true,"middlewareMode":"classic","base":"/","trailingSlash":"ignore","compressHTML":"jsx","componentMetadata":[["C:/Users/Siul/Desktop/drape-shop/src/pages/index.astro",{"propagation":"none","containsHead":true}]],"renderers":[],"clientDirectives":[["idle","(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value==\"object\"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};\"requestIdleCallback\"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event(\"astro:idle\"));})();"],["load","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event(\"astro:load\"));})();"],["media","(()=>{var n=(a,t)=>{let i=async()=>{await(await a())()};if(t.value){let e=matchMedia(t.value);e.matches?i():e.addEventListener(\"change\",i,{once:!0})}};(self.Astro||(self.Astro={})).media=n;window.dispatchEvent(new Event(\"astro:media\"));})();"],["only","(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event(\"astro:only\"));})();"],["visible","(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value==\"object\"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event(\"astro:visible\"));})();"]],"entryModules":{"astro/entrypoints/prerender":"prerender-entry.DxV22bPg.mjs","\u0000noop-middleware":"virtual_astro_middleware.mjs","\u0000virtual:astro:server-island-manifest":"chunks/_virtual_astro_server-island-manifest_C1Q2srgE.mjs","\u0000virtual:astro:session-driver":"chunks/_virtual_astro_session-driver_UK25_e1N.mjs","\u0000virtual:astro:page:src/pages/index@_@astro":"chunks/index_BOFsLE9F.mjs","\u0000virtual:astro:actions/noop-entrypoint":"chunks/noop-entrypoint_Z3zFhrGC.mjs","@astrojs/netlify/ssr-function.js":"entry.mjs","\u0000virtual:astro:page:node_modules/astro/dist/assets/endpoint/generic@_@js":"chunks/generic_BLT6hITo.mjs","C:/Users/Siul/Desktop/drape-shop/node_modules/@astrojs/netlify/dist/image-service.js":"chunks/image-service_9_YXBPQv.mjs","\u0000virtual:astro:page:node_modules/@keystatic/astro/internal/keystatic-api@_@js":"chunks/keystatic-api_BlLaVN9D.mjs","\u0000virtual:astro:page:node_modules/@keystatic/astro/internal/keystatic-astro-page@_@astro":"chunks/keystatic-astro-page_DNTwi5Uh.mjs","C:/Users/Siul/Desktop/drape-shop/src/components/Catalog.astro?astro&type=script&index=0&lang.ts":"_astro/Catalog.astro_astro_type_script_index_0_lang.DC0khmlZ.js","C:/Users/Siul/Desktop/drape-shop/src/components/ProductCard.astro?astro&type=script&index=0&lang.ts":"_astro/ProductCard.astro_astro_type_script_index_0_lang.D181cFCk.js","C:/Users/Siul/Desktop/drape-shop/src/pages/index.astro?astro&type=script&index=0&lang.ts":"_astro/index.astro_astro_type_script_index_0_lang.DclieyWZ.js","C:/Users/Siul/Desktop/drape-shop/node_modules/@keystatic/astro/internal/keystatic-page.js":"_astro/keystatic-page.D03QP3yP.js","astro:scripts/before-hydration.js":""},"inlinedScripts":[["C:/Users/Siul/Desktop/drape-shop/src/components/Catalog.astro?astro&type=script&index=0&lang.ts","var e=document.querySelectorAll(`[data-brand-filter]`),t=document.querySelectorAll(`[data-product-brand]`);e.forEach(n=>{n.addEventListener(`click`,()=>{let r=n.dataset.brandFilter;e.forEach(e=>e.classList.toggle(`bg-ink`,e===n)),e.forEach(e=>e.classList.toggle(`text-cream`,e===n)),t.forEach(e=>{e.hidden=r!==`Todas`&&e.dataset.productBrand!==r})})});"],["C:/Users/Siul/Desktop/drape-shop/src/components/ProductCard.astro?astro&type=script&index=0&lang.ts","document.querySelectorAll(`[data-product-image]`).forEach(e=>{let t=e.closest(`article`)?.nextElementSibling,n=t?.querySelector(`[data-modal-image]`),r=t?.querySelector(`[data-close-modal]`),i=t?.querySelectorAll(`[data-view-toggle]`);if(!t||!n)return;let a=e=>{let t=n.dataset.modalFrente,r=n.dataset.modalAtras,a=e===`atras`&&r?`atras`:`frente`;n.dataset.current=a,n.src=a===`atras`?r:t,i?.forEach(e=>{let t=e.dataset.viewToggle===a;e.classList.toggle(`bg-ink`,t),e.classList.toggle(`text-cream`,t),e.classList.toggle(`bg-white`,!t),e.classList.toggle(`text-black`,!t)})};e.addEventListener(`click`,()=>{n.src=e.dataset.imagenFrente||e.src,n.dataset.current=`frente`,a(`frente`),t.showModal()}),r?.addEventListener(`click`,()=>t.close()),i?.forEach(e=>{e.addEventListener(`click`,()=>a(e.dataset.viewToggle))}),n.addEventListener(`click`,()=>{if(!n.dataset.modalAtras)return;let e=n.dataset.current===`atras`?`frente`:`atras`;a(e)}),t.addEventListener(`click`,e=>{e.target===t&&t.close()})});"],["C:/Users/Siul/Desktop/drape-shop/src/pages/index.astro?astro&type=script&index=0&lang.ts","(async()=>{let e=document.querySelectorAll(`.precio-bs-dinamico`);try{let t=await fetch(`https://ve.dolarapi.com/v1/dolares/oficial`);if(!t.ok)throw Error(`BCV API: ${t.status}`);let{promedio:n}=await t.json();if(typeof n!=`number`)throw Error(`Tasa BCV inválida`);e.forEach(e=>{let t=Number(e.dataset.usd);e.textContent=Number.isFinite(t)?`Bs ${(t*n).toLocaleString(`es-VE`,{maximumFractionDigits:0})}`:`Bs --`})}catch(t){console.error(`No se pudo obtener la tasa del BCV`,t),e.forEach(e=>{e.textContent=`Bs --`})}})();"]],"assets":["/images/chromehearts-black-cross.jpg","/images/chromehearts-black-red.jpg","/images/chromehearts-white-pink.jpg","/images/corteiz-cream.jpg","/images/corteiz-script-white.jpg","/images/corteiz-white-outline.jpg","/images/dp-logo.png","/images/essentials-black.jpg","/images/essentials-sage.jpg","/images/essentials-sand.jpg","/images/essentials-white.jpg","/images/faith-black.jpg","/images/npc-green.jpg","/images/nudeproject-brown.jpg","/images/og-preview.svg","/images/ola.jpg","/_astro/keystatic-page.D03QP3yP.js","/assets/productos/ola/imagen.jpg","/_astro/index.DAj3ppaH.css","/index.html"],"buildFormat":"directory","checkOrigin":true,"actionBodySizeLimit":1048576,"serverIslandBodySizeLimit":1048576,"allowedDomains":[],"key":"W0ZwA3vslx9LBC+FNUN6l+VGAFCPwPKjXym0FiAfi8M=","sessionConfig":{"driver":"unstorage/drivers/netlify-blobs","options":{"name":"astro-sessions","consistency":"strong"}},"image":{},"devToolbar":{"enabled":false,"debugInfoOutput":""},"logLevel":"info","shouldInjectCspMetaTags":false});
 var manifestRoutes = _manifest.routes;
 var manifest = Object.assign(_manifest, {
 	renderers,
@@ -5451,7 +5271,7 @@ function createHandler({ notFoundContent }) {
 		const astroLocalsHeader = request.headers.get("x-astro-locals");
 		const middlewareSecretHeader = request.headers.get("x-astro-middleware-secret");
 		if (astroLocalsHeader) {
-			if (middlewareSecretHeader !== "5ee519d6-07b8-46a9-8d9a-07c304e31a44") return new Response("Forbidden", { status: 403 });
+			if (middlewareSecretHeader !== "a9215d2a-9083-4e87-afb1-5599dabb5387") return new Response("Forbidden", { status: 403 });
 			request.headers.delete("x-astro-middleware-secret");
 			locals = JSON.parse(astroLocalsHeader);
 		}
@@ -5466,4 +5286,4 @@ function createHandler({ notFoundContent }) {
 	};
 }
 //#endregion
-export { createHandler };
+export { createHandler, path_exports as t };
