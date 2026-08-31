@@ -1,12 +1,8 @@
 {
-  "name": "drape-astro",
-  "type": "module",
-  "version": "0.2.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/netlify": "^8.2.4",
@@ -14,9 +10,5 @@
     "astro": "^7.1.3",
     "@tailwindcss/vite": "^4.3.3",
     "tailwindcss": "^4.0.0"
-  },
-  "devDependencies": {
-    "prettier": "^3.4.2",
-    "prettier-plugin-astro": "^0.14.1"
   }
 }
