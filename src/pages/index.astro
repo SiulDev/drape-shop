@@ -16,35 +16,3 @@ import Footer from "../components/Footer.astro";
     <Footer />
   </div>
 </Layout>
-
-<script>
-  const actualizarPrecios = async () => {
-    const precios = document.querySelectorAll<HTMLElement>(
-      ".precio-bs-dinamico",
-    );
-
-    try {
-      const respuesta = await fetch(
-        "https://ve.dolarapi.com/v1/dolares/oficial",
-      );
-      if (!respuesta.ok) throw new Error(`BCV API: ${respuesta.status}`);
-
-      const { promedio } = await respuesta.json();
-      if (typeof promedio !== "number") throw new Error("Tasa BCV inválida");
-
-      precios.forEach((precio) => {
-        const usd = Number(precio.dataset.usd);
-        precio.textContent = Number.isFinite(usd)
-          ? `Bs ${(usd * promedio).toLocaleString("es-VE", { maximumFractionDigits: 0 })}`
-          : "Bs --";
-      });
-    } catch (error) {
-      console.error("No se pudo obtener la tasa del BCV", error);
-      precios.forEach((precio) => {
-        precio.textContent = "Bs --";
-      });
-    }
-  };
-
-  actualizarPrecios();
-</script>

@@ -3,8 +3,15 @@ import "../styles/global.css";
 
 interface Props {
   title?: string;
+  description?: string;
+  noindex?: boolean;
 }
-const { title = "DRAPE — Catálogo" } = Astro.props;
+const {
+  title = "DRAPE — Catálogo",
+  description = "Catálogo exclusivo de streetwear con stock real y pedidos directos por WhatsApp.",
+  noindex = false,
+} = Astro.props;
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? Astro.url.origin;
 ---
 
 <!doctype html>
@@ -16,10 +23,8 @@ const { title = "DRAPE — Catálogo" } = Astro.props;
 
     <!-- SEO Básico -->
     <title>{title}</title>
-    <meta
-      name="description"
-      content="Catálogo exclusivo de franelas Essentials, Corteiz, Chrome Hearts y más. Stock real y envíos a todo el país."
-    />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta
       name="keywords"
       content="Ropa, Streetwear, Essentials, Corteiz, Franelas, Venezuela, DRAPE"
@@ -27,22 +32,20 @@ const { title = "DRAPE — Catálogo" } = Astro.props;
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tudominio.com/" />
+    <link rel="canonical" href={Astro.url.href} />
+    <meta property="og:url" content={siteUrl} />
     <meta property="og:title" content="DRAPE | Streetwear Exclusivo" />
     <meta
       property="og:description"
       content="Descubre nuestra colección de piezas originales. Stock limitado."
     />
-    <meta
-      property="og:image"
-      content="https://tudominio.com/images/og-preview.svg"
-    />
+    <meta property="og:image" content={`${siteUrl}/images/og-preview.svg`} />
     <meta property="og:site_name" content="DRAPE" />
     <meta property="og:locale" content="es_VE" />
 
     <!-- Twitter / X -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://tudominio.com/" />
+    <meta property="twitter:url" content={siteUrl} />
     <meta property="twitter:title" content="DRAPE | Streetwear Exclusivo" />
     <meta
       property="twitter:description"
@@ -50,15 +53,9 @@ const { title = "DRAPE — Catálogo" } = Astro.props;
     />
     <meta
       property="twitter:image"
-      content="https://tudominio.com/images/og-preview.svg"
+      content={`${siteUrl}/images/og-preview.svg`}
     />
     <meta property="twitter:image:alt" content="DRAPE | Streetwear Exclusivo" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Archivo+Black&family=JetBrains+Mono:wght@500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body class="bg-cream font-body text-ink antialiased overflow-x-hidden">
     <slot />

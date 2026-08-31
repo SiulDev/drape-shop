@@ -1,18 +1,23 @@
 ---
-import { createReader } from "@keystatic/core/reader";
-import keystaticConfig from "../../keystatic.config";
+import { createClient } from "@supabase/supabase-js";
 import ProductCard from "./ProductCard.astro";
 
-const reader = createReader(process.cwd(), keystaticConfig);
-const rawProducts = await reader.collections.productos.all();
-const products = rawProducts.map(({ slug, entry }) => ({
-  slug,
+const supabase = createClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+);
+const { data: rawProducts, error } = await supabase
+  .from("productos")
+  .select("*")
+  .order("created_at", { ascending: false });
+const products = (rawProducts ?? []).map((entry) => ({
+  slug: entry.id,
   name: entry.nombre ?? "Producto",
   brand: entry.marca ?? "Sin marca",
   sizes: entry.tallas ?? "",
   price: entry.precioUSD ?? 0,
-  inStock: entry.enStock,
-  img: `/images/${entry.imagen}`,
+  inStock: entry.enStock ?? false,
+  img: entry.imagen ?? "/images/og-preview.svg",
 }));
 const brands = [...new Set(products.map((product) => product.brand))];
 ---
@@ -71,7 +76,7 @@ const brands = [...new Set(products.map((product) => product.brand))];
     class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
   >
     {
-      products.length > 0 ? (
+      !error && products.length > 0 ? (
         products.map((product) => (
           <div data-product-brand={product.brand}>
             <ProductCard {...product} />
@@ -79,7 +84,9 @@ const brands = [...new Set(products.map((product) => product.brand))];
         ))
       ) : (
         <p class="col-span-full py-10 text-center font-bold">
-          Cargando catálogo...
+          {error
+            ? "No se pudo cargar el catálogo."
+            : "No hay productos publicados."}
         </p>
       )
     }

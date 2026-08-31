@@ -1,4 +1,6 @@
 ---
+import { BS_RATE } from "../config";
+
 interface Props {
   slug: string;
   name: string;
@@ -60,9 +62,13 @@ const tallasArray = tallas
       </span>
     </div>
     <div class="font-mono">
-      <span
-        class="precio-bs-dinamico mt-2 block text-xs font-bold text-ink"
-        data-usd={precioUSD}></span>
+      <span class="precio-bs-dinamico mt-2 block text-xs font-bold text-ink">
+        Bs {
+          (precioUSD * BS_RATE).toLocaleString("es-VE", {
+            maximumFractionDigits: 0,
+          })
+        }
+      </span>
     </div>
 
     <p class="font-mono text-xs font-medium text-ink-soft">Tallas: {tallas}</p>
@@ -182,7 +188,13 @@ const tallasArray = tallas
           </div>
 
           <div class="mt-2 font-mono text-base font-semibold text-ink-soft">
-            <span class="precio-bs-dinamico block" data-usd={precioUSD}></span>
+            <span class="precio-bs-dinamico block">
+              Bs {
+                (precioUSD * BS_RATE).toLocaleString("es-VE", {
+                  maximumFractionDigits: 0,
+                })
+              }
+            </span>
           </div>
 
           <div class="mt-6">

@@ -5,24 +5,4 @@ dist/
 .env.*
 !.env.example
 .DS_Store
-
-# Local Netlify folder
-.netlify
-# Dependencias
-node_modules/
-package-lock.json
-
-# Compilacion Astro
-dist/
-.astro/
-
-# Variables de entorno
-.env
-.env.*
-!.env.example
-
-# Archivos de sistema
-.DS_Store
-
-# Netlify local
 .netlify

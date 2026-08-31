@@ -2,120 +2,437 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Admin — DRAPE">
-  <main class="flex min-h-screen items-center justify-center px-4 py-10">
-    <form
-      id="productoForm"
-      class="w-full max-w-md space-y-4 border-4 border-black bg-card p-6 shadow-lg shadow-black/15 sm:p-8"
-    >
-      <h1 class="mb-6 font-display text-2xl text-ink">Subir producto</h1>
+<Layout title="Admin — DRAPE" noindex>
+  <main class="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <header class="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <a
+            href="/"
+            class="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-red-drape"
+            >← Volver al catálogo</a
+          >
+          <p
+            class="mt-4 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-ink-soft"
+          >
+            Panel de control · Drape
+          </p>
+          <h1 class="mt-2 font-display text-4xl tracking-tighter sm:text-6xl">
+            Administra tu inventario.
+          </h1>
+        </div>
+        <div class="border-2 border-black bg-ink px-4 py-3 text-cream">
+          <p
+            class="font-mono text-[9px] uppercase tracking-[0.2em] text-cream/60"
+          >
+            Productos visibles
+          </p>
+          <p id="productCount" class="mt-1 font-display text-2xl">—</p>
+        </div>
+      </header>
 
-      <input
-        id="adminPass"
-        type="password"
-        placeholder="Contraseña"
-        required
-        class="w-full border-2 border-black bg-cream px-3 py-2 text-sm text-ink"
-      />
-      <input
-        id="prodNombre"
-        type="text"
-        placeholder="Nombre del producto"
-        required
-        class="w-full border-2 border-black bg-cream px-3 py-2 text-sm text-ink"
-      />
-      <input
-        id="prodTallas"
-        type="text"
-        placeholder="Tallas"
-        required
-        class="w-full border-2 border-black bg-cream px-3 py-2 text-sm text-ink"
-      />
-      <input
-        id="prodPrecio"
-        type="number"
-        placeholder="Precio USD"
-        required
-        class="w-full border-2 border-black bg-cream px-3 py-2 text-sm text-ink"
-      />
-      <input
-        id="prodImagen"
-        type="file"
-        accept="image/*"
-        required
-        class="w-full border-2 border-black bg-cream px-3 py-2 text-sm text-ink"
-      />
-
-      <button
-        type="submit"
-        class="w-full border-4 border-black bg-ink px-4 py-3 font-mono text-sm font-bold text-cream transition-colors hover:bg-red-drape"
+      <div
+        id="status"
+        class="mb-6 hidden border-2 border-black px-4 py-3 font-mono text-xs font-bold"
+        role="status"
       >
-        Subir Producto
-      </button>
-    </form>
+      </div>
+
+      <section
+        class="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+      >
+        <form
+          id="productoForm"
+          class="border-2 border-black bg-card p-5 shadow-[6px_6px_0_#14130d] sm:p-7"
+        >
+          <div class="mb-6 flex items-start justify-between gap-4">
+            <div>
+              <p
+                class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-drape"
+              >
+                Nueva entrada
+              </p>
+              <h2 class="mt-2 font-display text-3xl">Subir producto</h2>
+            </div>
+            <span
+              class="border border-black bg-cream px-2 py-1 font-mono text-[9px] font-bold uppercase"
+              >Manual</span
+            >
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="sm:col-span-2"
+              ><span>Nombre del producto</span><input
+                id="prodNombre"
+                type="text"
+                placeholder="Ej. Essentials Tee"
+                required
+              /></label
+            >
+            <label
+              ><span>Marca</span><input
+                id="prodMarca"
+                type="text"
+                placeholder="Essentials"
+                required
+              /></label
+            >
+            <label
+              ><span>Tallas</span><input
+                id="prodTallas"
+                type="text"
+                placeholder="S, M, L, XL"
+                required
+              /></label
+            >
+            <label
+              ><span>Precio USD</span><input
+                id="prodPrecio"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="35.00"
+                required
+              /></label
+            >
+            <label
+              ><span>Clave de admin</span><input
+                id="adminPass"
+                type="password"
+                placeholder="Contraseña"
+                required
+              /></label
+            >
+          </div>
+
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <label class="file-field"
+              ><span>Imagen frontal <b>*</b></span><input
+                id="prodImagen"
+                type="file"
+                accept="image/*"
+                required
+              /></label
+            >
+            <label class="file-field"
+              ><span>Imagen trasera <em>opcional</em></span><input
+                id="prodImagenAtras"
+                type="file"
+                accept="image/*"
+              /></label
+            >
+          </div>
+
+          <label
+            class="mt-5 flex cursor-pointer items-center gap-3 border-2 border-black bg-cream px-3 py-3 text-xs font-bold"
+          >
+            <input
+              id="prodEnStock"
+              type="checkbox"
+              checked
+              class="h-4 w-4 accent-red-drape"
+            />
+            Publicar como disponible para compra
+          </label>
+
+          <button
+            type="submit"
+            class="mt-6 flex w-full items-center justify-center gap-2 border-2 border-black bg-ink px-4 py-4 font-mono text-xs font-bold uppercase tracking-[0.12em] text-cream transition-colors hover:bg-red-drape"
+          >
+            <span>＋</span> Guardar producto
+          </button>
+        </form>
+
+        <section class="border-2 border-black bg-cream p-5 sm:p-7">
+          <div class="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p
+                class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-drape"
+              >
+                Vista previa
+              </p><h2 class="mt-2 font-display text-3xl">Imágenes</h2>
+            </div>
+            <p
+              class="max-w-37.5 text-right text-xs leading-relaxed text-ink-soft"
+            >
+              Elige frontal o trasera para revisar cada vista.
+            </p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="preview-panel">
+              <span>Frontal</span><img
+                id="previewFront"
+                alt="Vista previa frontal"
+              />
+            </div>
+            <div class="preview-panel">
+              <span>Trasera</span><img
+                id="previewBack"
+                alt="Vista previa trasera"
+              />
+            </div>
+          </div>
+          <div
+            class="mt-5 flex items-center gap-2 border-t border-black/20 pt-4 font-mono text-[10px] uppercase text-ink-soft"
+          >
+            <span class="h-2 w-2 rounded-full bg-red-drape"></span>Las imágenes
+            se guardan en Supabase Storage
+          </div>
+        </section>
+      </section>
+
+      <section class="mt-14">
+        <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p
+              class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-drape"
+            >
+              Control de stock
+            </p><h2 class="mt-2 font-display text-4xl sm:text-5xl">
+              Inventario actual.
+            </h2>
+          </div><button
+            id="refresh"
+            type="button"
+            class="border-2 border-black bg-cream px-4 py-2 font-mono text-[10px] font-bold uppercase hover:bg-ink hover:text-cream"
+            >↻ Actualizar</button
+          >
+        </div>
+        <div id="inventory" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <p
+            class="col-span-full border-2 border-dashed border-black/40 p-10 text-center font-mono text-xs text-ink-soft"
+          >
+            Cargando inventario...
+          </p>
+        </div>
+      </section>
+    </div>
   </main>
 </Layout>
 
+<style>
+  label > span,
+  .file-field > span {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  label > span em {
+    color: var(--color-ink-soft);
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  label > span b {
+    color: var(--color-red-drape);
+  }
+  label input[type="text"],
+  label input[type="number"],
+  label input[type="password"] {
+    width: 100%;
+    border: 2px solid #14130d;
+    background: var(--color-cream);
+    padding: 0.8rem;
+    font-size: 0.85rem;
+    outline: none;
+  }
+  label input:focus {
+    box-shadow: 3px 3px 0 #d1281c;
+  }
+  .file-field input {
+    width: 100%;
+    border: 2px solid #14130d;
+    background: var(--color-cream);
+    padding: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+  .preview-panel {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border: 2px solid #14130d;
+    background: #d9d6cc;
+  }
+  .preview-panel span {
+    position: absolute;
+    left: 0.65rem;
+    top: 0.65rem;
+    z-index: 1;
+    background: #14130d;
+    padding: 0.35rem 0.5rem;
+    color: #efeada;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .preview-panel img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+</style>
+
 <script>
+  // @ts-nocheck
   import { createClient } from "@supabase/supabase-js";
+
   const supabase = createClient(
     import.meta.env.PUBLIC_SUPABASE_URL,
     import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
   );
-
   const form = document.getElementById("productoForm");
+  const inventory = document.getElementById("inventory");
+  const status = document.getElementById("status");
+  const frontInput = document.getElementById("prodImagen");
+  const backInput = document.getElementById("prodImagenAtras");
+  const frontPreview = document.getElementById("previewFront");
+  const backPreview = document.getElementById("previewBack");
+
+  const showStatus = (message, isError = false) => {
+    status.textContent = message;
+    status.className = `mb-6 border-2 border-black px-4 py-3 font-mono text-xs font-bold ${isError ? "bg-red-drape text-white" : "bg-[#cde6c0] text-ink"}`;
+  };
+  const preview = (input, image) =>
+    input.addEventListener("change", () => {
+      const file = input.files?.[0];
+      if (file) image.src = URL.createObjectURL(file);
+    });
+  preview(frontInput, frontPreview);
+  preview(backInput, backPreview);
+
+  const uploadImage = async (file) => {
+    if (!file) return "";
+    const fileName = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+    const { error } = await supabase.storage
+      .from("imagenes-drape")
+      .upload(fileName, file);
+    if (error) throw error;
+    return supabase.storage.from("imagenes-drape").getPublicUrl(fileName).data
+      .publicUrl;
+  };
+
+  const renderInventory = (products) => {
+    document.getElementById("productCount").textContent = products.length;
+    if (!products.length) {
+      inventory.innerHTML =
+        '<p class="col-span-full border-2 border-dashed border-black/40 p-10 text-center font-mono text-xs text-ink-soft">No hay productos todavía.</p>';
+      return;
+    }
+    inventory.innerHTML = products
+      .map((product) => {
+        const front = product.imagen || "";
+        const back = product.imagenAtras || "";
+        const date = product.created_at
+          ? new Date(product.created_at).toLocaleDateString("es-VE", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
+          : "Fecha no disponible";
+        return `<article class="overflow-hidden border-2 border-black bg-card shadow-[4px_4px_0_#14130d]">
+        <div class="relative aspect-[4/3] bg-[#d9d6cc]"><img class="product-image h-full w-full object-cover" src="${front}" alt="${product.nombre || "Producto"}" data-front="${front}" data-back="${back}" /><span class="absolute left-3 top-3 bg-ink px-2 py-1 font-mono text-[9px] font-bold uppercase text-cream">${product.enStock ? "En stock" : "Agotado"}</span>${back ? '<button type="button" class="absolute bottom-3 right-3 border border-black bg-cream px-2 py-1 font-mono text-[9px] font-bold uppercase" data-view>Ver trasera</button>' : ""}</div>
+        <div class="p-4"><div class="flex items-start justify-between gap-3"><div><p class="font-mono text-[9px] font-bold uppercase tracking-[0.15em] text-red-drape">${product.marca || "Sin marca"}</p><h3 class="mt-1 font-display text-xl">${product.nombre || "Sin nombre"}</h3></div><p class="font-mono text-lg font-bold">$${Number(product.precioUSD || 0).toFixed(2)}</p></div>
+        <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-ink-soft"><span>Tallas: ${product.tallas || "-"}</span><span>Alta: ${date}</span></div>
+        <div class="mt-5 grid grid-cols-2 gap-2"><button type="button" class="border-2 border-black bg-ink px-2 py-3 font-mono text-[10px] font-bold uppercase text-cream hover:bg-red-drape" data-stock data-id="${product.id}" data-value="${product.enStock}">${product.enStock ? "Quitar stock" : "Poner en stock"}</button><button type="button" class="border-2 border-black bg-red-drape px-2 py-3 font-mono text-[10px] font-bold uppercase text-white hover:bg-ink" data-delete data-id="${product.id}">Eliminar</button></div></div></article>`;
+      })
+      .join("");
+    inventory.querySelectorAll("[data-view]").forEach((button) =>
+      button.addEventListener("click", () => {
+        const image = button.parentElement.querySelector("img");
+        const next =
+          image.src === image.dataset.back
+            ? image.dataset.front
+            : image.dataset.back;
+        image.src = next;
+        button.textContent =
+          image.src === image.dataset.back ? "Ver frontal" : "Ver trasera";
+      }),
+    );
+    inventory.querySelectorAll("[data-stock]").forEach((button) =>
+      button.addEventListener("click", async () => {
+        button.disabled = true;
+        const { error } = await supabase
+          .from("productos")
+          .update({ enStock: button.dataset.value !== "true" })
+          .eq("id", button.dataset.id);
+        if (error) showStatus(error.message, true);
+        else {
+          showStatus("Stock actualizado.");
+          loadInventory();
+        }
+      }),
+    );
+    inventory.querySelectorAll("[data-delete]").forEach((button) =>
+      button.addEventListener("click", async () => {
+        if (!confirm("¿Eliminar este producto definitivamente?")) return;
+        button.disabled = true;
+        const { error } = await supabase
+          .from("productos")
+          .delete()
+          .eq("id", button.dataset.id);
+        if (error) showStatus(error.message, true);
+        else {
+          showStatus("Producto eliminado.");
+          loadInventory();
+        }
+      }),
+    );
+  };
+
+  const loadInventory = async () => {
+    const { data, error } = await supabase
+      .from("productos")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) {
+      inventory.innerHTML = `<p class="col-span-full border-2 border-red-drape p-6 font-mono text-xs">No se pudo cargar el inventario: ${error.message}</p>`;
+      return;
+    }
+    renderInventory(data || []);
+  };
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-
-    const adminPass = document.getElementById("adminPass") as HTMLInputElement;
-    const prodNombre = document.getElementById(
-      "prodNombre",
-    ) as HTMLInputElement;
-    const prodTallas = document.getElementById(
-      "prodTallas",
-    ) as HTMLInputElement;
-    const prodPrecio = document.getElementById(
-      "prodPrecio",
-    ) as HTMLInputElement;
-    const prodImagen = document.getElementById(
-      "prodImagen",
-    ) as HTMLInputElement;
-
+    const adminPass = document.getElementById("adminPass");
     if (adminPass.value !== "1234") {
-      alert("Clave incorrecta");
+      showStatus("Clave incorrecta.", true);
       return;
     }
-
+    const submit = form.querySelector("button[type=submit]");
+    submit.disabled = true;
+    submit.innerHTML = "Guardando...";
     try {
-      const file = document.getElementById("prodImagen").files[0];
-      const precio = Number(prodPrecio.value);
-      const fileName = Date.now() + "-" + file.name.replace(/\s+/g, "-");
-
-      const { error: uploadError } = await supabase.storage
-        .from("imagenes-drape")
-        .upload(fileName, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: publicUrlData } = supabase.storage
-        .from("imagenes-drape")
-        .getPublicUrl(fileName);
-
-      const { error: insertError } = await supabase.from("productos").insert({
-        nombre: prodNombre.value,
-        tallas: prodTallas.value,
-        precioUSD: precio,
-        imagen: publicUrlData.publicUrl,
-        enStock: true,
+      const front = await uploadImage(frontInput.files[0]);
+      const back = await uploadImage(backInput.files[0]);
+      const { error } = await supabase.from("productos").insert({
+        nombre: document.getElementById("prodNombre").value,
+        marca: document.getElementById("prodMarca").value,
+        tallas: document.getElementById("prodTallas").value,
+        precioUSD: Number(document.getElementById("prodPrecio").value),
+        imagen: front,
+        imagenAtras: back || null,
+        enStock: document.getElementById("prodEnStock").checked,
       });
-
-      if (insertError) throw insertError;
-
-      alert("¡ÉXITO!");
+      if (error) throw error;
+      showStatus("Producto guardado correctamente.");
       form.reset();
+      frontPreview.removeAttribute("src");
+      backPreview.removeAttribute("src");
+      loadInventory();
     } catch (error) {
-      alert("ERROR: " + error.message);
+      showStatus(`Error: ${error.message}`, true);
+    } finally {
+      submit.disabled = false;
+      submit.innerHTML = "<span>＋</span> Guardar producto";
     }
   });
+  document.getElementById("refresh").addEventListener("click", loadInventory);
+  loadInventory();
 </script>

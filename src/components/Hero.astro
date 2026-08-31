@@ -1,15 +1,14 @@
 ---
-const heroImage =
-  "https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200&auto=format&fit=crop&crop=faces&h=1500";
+const heroImage = "/images/chromehearts-black-red.jpg";
 ---
 
 <section
-  class="relative mx-auto w-full max-w-[1440px] px-5 pb-24 pt-16 sm:px-6 lg:px-8"
+  class="relative mx-auto w-full max-w-360 px-5 pb-24 pt-16 sm:px-6 lg:px-8"
 >
   <div
     class="flex flex-col items-center justify-center gap-10 md:flex-row md:items-center md:justify-center md:gap-16 lg:gap-24"
   >
-    <div class="z-0 w-full max-w-xl md:w-[55%] lg:max-w-[620px]">
+    <div class="z-0 w-full max-w-xl md:w-[55%] lg:max-w-155">
       <p
         class="mb-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-red-drape sm:text-xs"
       >
@@ -55,16 +54,18 @@ const heroImage =
     </div>
 
     <div
-      class="relative z-10 w-full max-w-md -ml-0 md:-ml-12 md:w-[45%] lg:-ml-16 lg:max-w-lg"
+      class="relative z-10 w-full max-w-md md:-ml-12 md:w-[45%] lg:-ml-16 lg:max-w-lg"
     >
-      <div class="absolute -inset-4 rounded-[2rem] bg-red-drape/5 blur-2xl">
-      </div>
+      <div class="absolute -inset-4 rounded-4xl bg-red-drape/5 blur-2xl"></div>
       <div
-        class="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-ink/10 bg-card shadow-[0_30px_80px_rgba(20,19,13,0.12)]"
+        class="relative aspect-4/5 overflow-hidden rounded-4xl border border-ink/10 bg-card shadow-[0_30px_80px_rgba(20,19,13,0.12)]"
       >
         <img
           src={heroImage}
           alt="Modelo luciendo pieza DRAPE"
+          width="640"
+          height="800"
+          fetchpriority="high"
           class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
         />
       </div>
@@ -80,10 +81,10 @@ const heroImage =
   </div>
 
   <div
-    class="w-screen relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] mt-12 overflow-hidden border-y border-black/10 bg-black py-4 text-cream"
+    class="relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] mt-12 w-screen overflow-hidden border-y border-black/10 bg-black py-4 text-cream"
   >
     <div
-      class="flex min-w-max items-center gap-10 whitespace-nowrap py-1 font-mono text-[10px] uppercase tracking-[0.28em] sm:text-xs [animation:marquee_18s_linear_infinite]"
+      class="flex min-w-max items-center gap-10 whitespace-nowrap py-1 font-mono text-[10px] uppercase tracking-[0.28em] sm:text-xs animate-[marquee_18s_linear_infinite]"
     >
       <span>DRAPE ✦ PIEZAS ORIGINALES ✦ STOCK LIMITADO ✦</span>
       <span aria-hidden="true"
