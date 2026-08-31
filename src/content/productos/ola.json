@@ -1,7 +1,8 @@
 {
+  "marca": "Ola",
   "nombre": "Ola",
   "tallas": "M X L",
   "precioUSD": 1,
   "enStock": true,
-  "imagen": "/assets/productos/ola/imagen.jpg"
+  "imagen": "ola.jpg"
 }

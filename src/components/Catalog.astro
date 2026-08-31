@@ -1,13 +1,25 @@
 ---
-import { supabase } from "../lib/supabase";
+import { createReader } from "@keystatic/core/reader";
+import keystaticConfig from "../../keystatic.config";
 import ProductCard from "./ProductCard.astro";
 
-const { data: productos } = await supabase.from("productos").select("*");
+const reader = createReader(process.cwd(), keystaticConfig);
+const rawProducts = await reader.collections.productos.all();
+const products = rawProducts.map(({ slug, entry }) => ({
+  slug,
+  name: entry.nombre,
+  brand: entry.marca,
+  sizes: entry.tallas,
+  price: entry.precioUSD,
+  inStock: entry.enStock,
+  img: `/images/${entry.imagen}`,
+}));
+const brands = [...new Set(products.map((product) => product.brand))];
 ---
 
 <section
   id="catalogo"
-  class="mx-auto w-full max-w-[1400px] px-4 pb-24 pt-20 sm:px-6 lg:px-8"
+  class="mx-auto w-full max-w-[1400px] px-5 pb-24 pt-20 sm:px-6 lg:px-8"
 >
   <div
     class="mb-8 flex flex-col gap-4 sm:mb-10 md:flex-row md:items-end md:justify-between"
@@ -28,9 +40,30 @@ const { data: productos } = await supabase.from("productos").select("*");
       </h2>
     </div>
 
-    <p class="max-w-md text-sm leading-relaxed text-ink-soft sm:text-base">
-      Essentials, Chrome Hearts, Corteiz y piezas raras para vestir sin ruido.
-    </p>
+    <div class="flex max-w-md flex-col gap-3">
+      <p class="text-sm leading-relaxed text-ink-soft sm:text-base">
+        Essentials, Chrome Hearts, Corteiz y piezas raras para vestir sin ruido.
+      </p>
+      <div class="flex flex-wrap gap-2" aria-label="Filtrar por marca">
+        <button
+          type="button"
+          data-brand-filter="Todas"
+          class="rounded-full border border-black bg-ink px-3 py-1 font-mono text-[10px] font-bold uppercase text-cream"
+          >Todas</button
+        >
+        {
+          brands.map((brand) => (
+            <button
+              type="button"
+              data-brand-filter={brand}
+              class="rounded-full border border-black px-3 py-1 font-mono text-[10px] font-bold uppercase text-ink"
+            >
+              {brand}
+            </button>
+          ))
+        }
+      </div>
+    </div>
   </div>
 
   <div
@@ -38,16 +71,11 @@ const { data: productos } = await supabase.from("productos").select("*");
     class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
   >
     {
-      productos && productos.length > 0 ? (
-        productos.map((producto) => (
-          <ProductCard
-            enStock={producto.enStock}
-            imagen={producto.imagen}
-            imagenAtras={producto.imagenAtras || ""}
-            nombre={producto.nombre}
-            precioUSD={producto.precioUSD}
-            tallas={producto.tallas}
-          />
+      products.length > 0 ? (
+        products.map((product) => (
+          <div data-product-brand={product.brand}>
+            <ProductCard {...product} />
+          </div>
         ))
       ) : (
         <p class="col-span-full py-10 text-center font-bold">
@@ -57,3 +85,25 @@ const { data: productos } = await supabase.from("productos").select("*");
     }
   </div>
 </section>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>(
+    "[data-brand-filter]",
+  );
+  const cards = document.querySelectorAll<HTMLElement>("[data-product-brand]");
+
+  filters.forEach((filter) => {
+    filter.addEventListener("click", () => {
+      const brand = filter.dataset.brandFilter;
+      filters.forEach((item) =>
+        item.classList.toggle("bg-ink", item === filter),
+      );
+      filters.forEach((item) =>
+        item.classList.toggle("text-cream", item === filter),
+      );
+      cards.forEach((card) => {
+        card.hidden = brand !== "Todas" && card.dataset.productBrand !== brand;
+      });
+    });
+  });
+</script>

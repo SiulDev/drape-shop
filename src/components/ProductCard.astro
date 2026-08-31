@@ -1,14 +1,21 @@
 ---
 interface Props {
-  nombre: string;
-  tallas: string;
-  precioUSD: number;
-  imagen: string;
-  imagenAtras: string;
-  enStock: boolean;
+  slug: string;
+  name: string;
+  brand: string;
+  sizes: string;
+  price: number;
+  inStock: boolean;
+  img: string;
 }
 
-const { nombre, tallas, precioUSD, imagen, imagenAtras, enStock } = Astro.props;
+const product = Astro.props;
+const { slug, name, brand, sizes, price, inStock, img } = product;
+const imagenAtras = "";
+const nombre = name;
+const tallas = sizes;
+const precioUSD = price;
+const imagen = img;
 const numeroWhatsApp = "584123401963";
 const mensajeBase = `PEDIDO - DRAPE\n\nProducto: ${nombre}\nTallas: ${tallas}\nPrecio: $${precioUSD}\n\n`;
 const hrefWhatsapp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeBase)}`;
@@ -35,20 +42,21 @@ const tallasArray = tallas
       class="h-full w-full cursor-pointer object-cover transition-transform duration-500 hover:scale-105"
     />
 
-    {!enStock && <span class="absolute inset-0 bg-black/40" />}
+    {!product.inStock && <span class="absolute inset-0 bg-black/40" />}
   </div>
 
   <div class="flex flex-1 flex-col gap-3 pt-4">
     <h3 class="text-sm font-bold leading-snug text-ink sm:text-base">
-      {nombre}
+      {name}
     </h3>
+    {sizes && <p class="font-mono text-xs text-ink-soft">Tallas: {sizes}</p>}
 
     <div class="flex items-center gap-3 font-mono">
       <p class="text-xl font-bold leading-none text-ink">${precioUSD}</p>
       <span
         class="inline-block rounded-e-2xl border-2 border-black px-2 py-1 text-xs font-bold uppercase tracking-wider text-black"
       >
-        {enStock ? "En stock" : "Agotado"}
+        {product.inStock ? "En stock" : "Agotado"}
       </span>
     </div>
     <div class="font-mono">
@@ -60,7 +68,7 @@ const tallasArray = tallas
     <p class="font-mono text-xs font-medium text-ink-soft">Tallas: {tallas}</p>
 
     {
-      enStock ? (
+      product.inStock ? (
         <a
           href={hrefWhatsapp}
           target="_blank"
@@ -207,14 +215,14 @@ const tallasArray = tallas
             >
               <span
                 class={`mr-2 inline-block h-2 w-2 rounded-full ${
-                  enStock ? "bg-green-500" : "bg-red-500"
+                  product.inStock ? "bg-green-500" : "bg-red-500"
                 }`}></span>
-              {enStock ? "Disponible" : "Agotado"}
+              {product.inStock ? "Disponible" : "Agotado"}
             </span>
           </div>
 
           {
-            enStock ? (
+            product.inStock ? (
               <a
                 href={hrefWhatsapp}
                 target="_blank"
