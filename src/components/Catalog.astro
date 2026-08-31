@@ -19,7 +19,6 @@ const products = (rawProducts ?? []).map((entry) => ({
   inStock: entry.enStock ?? false,
   img: entry.imagen ?? "/images/og-preview.svg",
 }));
-const brands = [...new Set(products.map((product) => product.brand))];
 ---
 
 <section
@@ -45,29 +44,10 @@ const brands = [...new Set(products.map((product) => product.brand))];
       </h2>
     </div>
 
-    <div class="flex max-w-md flex-col gap-3">
+    <div class="max-w-md">
       <p class="text-sm leading-relaxed text-ink-soft sm:text-base">
         Essentials, Chrome Hearts, Corteiz y piezas raras para vestir sin ruido.
       </p>
-      <div class="flex flex-wrap gap-2" aria-label="Filtrar por marca">
-        <button
-          type="button"
-          data-brand-filter="Todas"
-          class="rounded-full border border-black bg-ink px-3 py-1 font-mono text-[10px] font-bold uppercase text-cream"
-          >Todas</button
-        >
-        {
-          brands.map((brand) => (
-            <button
-              type="button"
-              data-brand-filter={brand}
-              class="rounded-full border border-black px-3 py-1 font-mono text-[10px] font-bold uppercase text-ink"
-            >
-              {brand}
-            </button>
-          ))
-        }
-      </div>
     </div>
   </div>
 
@@ -92,25 +72,3 @@ const brands = [...new Set(products.map((product) => product.brand))];
     }
   </div>
 </section>
-
-<script>
-  const filters = document.querySelectorAll<HTMLButtonElement>(
-    "[data-brand-filter]",
-  );
-  const cards = document.querySelectorAll<HTMLElement>("[data-product-brand]");
-
-  filters.forEach((filter) => {
-    filter.addEventListener("click", () => {
-      const brand = filter.dataset.brandFilter;
-      filters.forEach((item) =>
-        item.classList.toggle("bg-ink", item === filter),
-      );
-      filters.forEach((item) =>
-        item.classList.toggle("text-cream", item === filter),
-      );
-      cards.forEach((card) => {
-        card.hidden = brand !== "Todas" && card.dataset.productBrand !== brand;
-      });
-    });
-  });
-</script>
