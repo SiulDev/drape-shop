@@ -14,9 +14,9 @@
   --color-ink-soft: #55534a; /* texto secundario, menos énfasis */
   --color-red-drape: #d1281c; /* acento de marca: CTAs, precios, hover */
 
-  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
-  --font-mono: "Courier New", monospace;
+  --font-display: "Archivo Black", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 @keyframes marquee {
