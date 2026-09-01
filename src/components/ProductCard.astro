@@ -19,7 +19,7 @@ const tallas = sizes;
 const precioUSD = price;
 const imagen = img;
 const numeroWhatsApp = "584123401963";
-const mensajeBase = `PEDIDO - DRAPE\n\nProducto: ${nombre}\nTallas: ${tallas}\nPrecio: $${precioUSD}\n\n`;
+const mensajeBase = `Hola DRAPE, me interesa comprar la pieza: ${nombre}\nPrecio: $${precioUSD}\nTalla: ${tallas}\nReferencia visual: ${imagen}`;
 const hrefWhatsapp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeBase)}`;
 const tallasArray = tallas
   .split(/[\s,]+/)
