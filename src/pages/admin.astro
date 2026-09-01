@@ -95,14 +95,6 @@ import Layout from "../layouts/Layout.astro";
                 required
               /></label
             >
-            <label
-              ><span>Clave de admin</span><input
-                id="adminPass"
-                type="password"
-                placeholder="Contraseña"
-                required
-              /></label
-            >
           </div>
 
           <div class="mt-6 grid gap-4 sm:grid-cols-2">
@@ -254,10 +246,23 @@ import Layout from "../layouts/Layout.astro";
   }
   .preview-panel {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     aspect-ratio: 4 / 5;
     overflow: hidden;
     border: 2px solid #14130d;
-    background: #d9d6cc;
+    background: linear-gradient(135deg, #d8d3c8 0%, #cfc9be 100%);
+    box-shadow: inset 0 0 0 1px rgba(20, 19, 13, 0.08);
+  }
+  .preview-panel.empty::before {
+    content: "Sin imagen";
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(20, 19, 13, 0.55);
   }
   .preview-panel span {
     position: absolute;
@@ -273,9 +278,15 @@ import Layout from "../layouts/Layout.astro";
     text-transform: uppercase;
   }
   .preview-panel img {
+    position: absolute;
+    inset: 0;
     height: 100%;
     width: 100%;
     object-fit: cover;
+    display: none;
+  }
+  .preview-panel:not(.empty) img {
+    display: block;
   }
 </style>
 
@@ -299,11 +310,27 @@ import Layout from "../layouts/Layout.astro";
     status.textContent = message;
     status.className = `mb-6 border-2 border-black px-4 py-3 font-mono text-xs font-bold ${isError ? "bg-red-drape text-white" : "bg-[#cde6c0] text-ink"}`;
   };
+  const setPreviewState = (image, hasFile) => {
+    const panel = image.closest(".preview-panel");
+    if (!panel) return;
+    panel.classList.toggle("empty", !hasFile);
+    image.style.display = hasFile ? "block" : "none";
+  };
+
   const preview = (input, image) =>
     input.addEventListener("change", () => {
       const file = input.files?.[0];
-      if (file) image.src = URL.createObjectURL(file);
+      if (file) {
+        image.src = URL.createObjectURL(file);
+        setPreviewState(image, true);
+        return;
+      }
+      image.removeAttribute("src");
+      setPreviewState(image, false);
     });
+
+  setPreviewState(frontPreview, false);
+  setPreviewState(backPreview, false);
   preview(frontInput, frontPreview);
   preview(backInput, backPreview);
 
@@ -322,7 +349,7 @@ import Layout from "../layouts/Layout.astro";
     document.getElementById("productCount").textContent = products.length;
     if (!products.length) {
       inventory.innerHTML =
-        '<p class="col-span-full border-2 border-dashed border-black/40 p-10 text-center font-mono text-xs text-ink-soft">No hay productos todavía.</p>';
+        '<p class="col-span-full border-2 border-dashed border-black/40 p-10 text-center font-mono text-xs text-ink-soft">Catálogo sin productos disponibles.</p>';
       return;
     }
     inventory.innerHTML = products
@@ -392,7 +419,7 @@ import Layout from "../layouts/Layout.astro";
       .select("*")
       .order("created_at", { ascending: false });
     if (error) {
-      inventory.innerHTML = `<p class="col-span-full border-2 border-red-drape p-6 font-mono text-xs">No se pudo cargar el inventario: ${error.message}</p>`;
+      inventory.innerHTML = `<p class="col-span-full border-2 border-red-drape p-6 font-mono text-xs">Catálogo sin stock disponible por el momento.</p>`;
       return;
     }
     renderInventory(data || []);
@@ -400,11 +427,6 @@ import Layout from "../layouts/Layout.astro";
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const adminPass = document.getElementById("adminPass");
-    if (adminPass.value !== "1234") {
-      showStatus("Clave incorrecta.", true);
-      return;
-    }
     const submit = form.querySelector("button[type=submit]");
     submit.disabled = true;
     submit.innerHTML = "Guardando...";

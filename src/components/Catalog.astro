@@ -65,8 +65,8 @@ const products = (rawProducts ?? []).map((entry) => ({
       ) : (
         <p class="col-span-full py-10 text-center font-bold">
           {error
-            ? "No se pudo cargar el catálogo."
-            : "No hay productos publicados."}
+            ? "Catálogo sin stock disponible por el momento."
+            : "Catálogo sin productos disponibles."}
         </p>
       )
     }
