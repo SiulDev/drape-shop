@@ -9,11 +9,12 @@ interface Props {
   price: number;
   inStock: boolean;
   img: string;
+  imgBack?: string;
 }
 
 const product = Astro.props;
-const { slug, name, brand, sizes, price, inStock, img } = product;
-const imagenAtras = "";
+const { slug, name, brand, sizes, price, inStock, img, imgBack = "" } = product;
+const imagenAtras = imgBack || "";
 const nombre = name;
 const tallas = sizes;
 const precioUSD = price;
