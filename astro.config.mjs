@@ -1,8 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-import netlify from '@astrojs/netlify';
-
 export default defineConfig({
   // El motor de Tailwind v4 vive aquí ahora
   vite: {
@@ -10,5 +8,4 @@ export default defineConfig({
   },
 
   output: 'static',
-  adapter: netlify(),
 });
