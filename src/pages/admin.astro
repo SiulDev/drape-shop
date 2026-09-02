@@ -294,10 +294,11 @@ import Layout from "../layouts/Layout.astro";
   // @ts-nocheck
   import { createClient } from "@supabase/supabase-js";
 
-  const supabase = createClient(
-    import.meta.env.PUBLIC_SUPABASE_URL,
+  const hasSupabaseConfig = Boolean(
+    import.meta.env.PUBLIC_SUPABASE_URL &&
     import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
   );
+
   const form = document.getElementById("productoForm");
   const inventory = document.getElementById("inventory");
   const status = document.getElementById("status");
@@ -309,7 +310,9 @@ import Layout from "../layouts/Layout.astro";
   const showStatus = (message, isError = false) => {
     status.textContent = message;
     status.className = `mb-6 border-2 border-black px-4 py-3 font-mono text-xs font-bold ${isError ? "bg-red-drape text-white" : "bg-[#cde6c0] text-ink"}`;
+    status.classList.remove("hidden");
   };
+
   const setPreviewState = (image, hasFile) => {
     const panel = image.closest(".preview-panel");
     if (!panel) return;
@@ -334,127 +337,172 @@ import Layout from "../layouts/Layout.astro";
   preview(frontInput, frontPreview);
   preview(backInput, backPreview);
 
-  const uploadImage = async (file) => {
-    if (!file) return "";
-    const fileName = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
-    const { error } = await supabase.storage
-      .from("imagenes-drape")
-      .upload(fileName, file);
-    if (error) throw error;
-    return supabase.storage.from("imagenes-drape").getPublicUrl(fileName).data
-      .publicUrl;
-  };
-
-  const renderInventory = (products) => {
-    document.getElementById("productCount").textContent = products.length;
-    if (!products.length) {
-      inventory.innerHTML =
-        '<p class="col-span-full border-2 border-dashed border-black/40 p-10 text-center font-mono text-xs text-ink-soft">Catálogo sin productos disponibles.</p>';
-      return;
-    }
-    inventory.innerHTML = products
-      .map((product) => {
-        const front = product.imagen || "";
-        const back = product.imagenAtras || "";
-        const date = product.created_at
-          ? new Date(product.created_at).toLocaleDateString("es-VE", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            })
-          : "Fecha no disponible";
-        return `<article class="overflow-hidden border-2 border-black bg-card shadow-[4px_4px_0_#14130d]">
-        <div class="relative aspect-[4/3] bg-[#d9d6cc]"><img class="product-image h-full w-full object-cover" src="${front}" alt="${product.nombre || "Producto"}" data-front="${front}" data-back="${back}" /><span class="absolute left-3 top-3 bg-ink px-2 py-1 font-mono text-[9px] font-bold uppercase text-cream">${product.enStock ? "En stock" : "Agotado"}</span>${back ? '<button type="button" class="absolute bottom-3 right-3 border border-black bg-cream px-2 py-1 font-mono text-[9px] font-bold uppercase" data-view>Ver trasera</button>' : ""}</div>
-        <div class="p-4"><div class="flex items-start justify-between gap-3"><div><p class="font-mono text-[9px] font-bold uppercase tracking-[0.15em] text-red-drape">${product.marca || "Sin marca"}</p><h3 class="mt-1 font-display text-xl">${product.nombre || "Sin nombre"}</h3></div><p class="font-mono text-lg font-bold">$${Number(product.precioUSD || 0).toFixed(2)}</p></div>
-        <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-ink-soft"><span>Tallas: ${product.tallas || "-"}</span><span>Alta: ${date}</span></div>
-        <div class="mt-5 grid grid-cols-2 gap-2"><button type="button" class="border-2 border-black bg-ink px-2 py-3 font-mono text-[10px] font-bold uppercase text-cream hover:bg-red-drape" data-stock data-id="${product.id}" data-value="${product.enStock}">${product.enStock ? "Quitar stock" : "Poner en stock"}</button><button type="button" class="border-2 border-black bg-red-drape px-2 py-3 font-mono text-[10px] font-bold uppercase text-white hover:bg-ink" data-delete data-id="${product.id}">Eliminar</button></div></div></article>`;
-      })
-      .join("");
-    inventory.querySelectorAll("[data-view]").forEach((button) =>
-      button.addEventListener("click", () => {
-        const image = button.parentElement.querySelector("img");
-        const next =
-          image.src === image.dataset.back
-            ? image.dataset.front
-            : image.dataset.back;
-        image.src = next;
-        button.textContent =
-          image.src === image.dataset.back ? "Ver frontal" : "Ver trasera";
-      }),
+  if (!hasSupabaseConfig) {
+    showStatus(
+      "Configura PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY en Cloudflare/entorno de producción.",
+      true,
     );
-    inventory.querySelectorAll("[data-stock]").forEach((button) =>
-      button.addEventListener("click", async () => {
-        button.disabled = true;
-        const { error } = await supabase
-          .from("productos")
-          .update({ enStock: button.dataset.value !== "true" })
-          .eq("id", button.dataset.id);
-        if (error) showStatus(error.message, true);
-        else {
-          showStatus("Stock actualizado.");
-          loadInventory();
-        }
-      }),
-    );
-    inventory.querySelectorAll("[data-delete]").forEach((button) =>
-      button.addEventListener("click", async () => {
-        if (!confirm("¿Eliminar este producto definitivamente?")) return;
-        button.disabled = true;
-        const { error } = await supabase
-          .from("productos")
-          .delete()
-          .eq("id", button.dataset.id);
-        if (error) showStatus(error.message, true);
-        else {
-          showStatus("Producto eliminado.");
-          loadInventory();
-        }
-      }),
-    );
-  };
-
-  const loadInventory = async () => {
-    const { data, error } = await supabase
-      .from("productos")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) {
-      inventory.innerHTML = `<p class="col-span-full border-2 border-red-drape p-6 font-mono text-xs">Catálogo sin stock disponible por el momento.</p>`;
-      return;
-    }
-    renderInventory(data || []);
-  };
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    inventory.innerHTML =
+      '<p class="col-span-full border-2 border-red-drape p-6 font-mono text-xs">Supabase no está configurado para producción. Revisa las variables del proyecto antes de publicar.</p>';
     const submit = form.querySelector("button[type=submit]");
-    submit.disabled = true;
-    submit.innerHTML = "Guardando...";
-    try {
-      const front = await uploadImage(frontInput.files[0]);
-      const back = await uploadImage(backInput.files[0]);
-      const { error } = await supabase.from("productos").insert({
-        nombre: document.getElementById("prodNombre").value,
-        marca: document.getElementById("prodMarca").value,
-        tallas: document.getElementById("prodTallas").value,
-        precioUSD: Number(document.getElementById("prodPrecio").value),
-        imagen: front,
-        imagenAtras: back || null,
-        enStock: document.getElementById("prodEnStock").checked,
-      });
-      if (error) throw error;
-      showStatus("Producto guardado correctamente.");
-      form.reset();
-      frontPreview.removeAttribute("src");
-      backPreview.removeAttribute("src");
-      loadInventory();
-    } catch (error) {
-      showStatus(`Error: ${error.message}`, true);
-    } finally {
-      submit.disabled = false;
-      submit.innerHTML = "<span>＋</span> Guardar producto";
+    if (submit) {
+      submit.disabled = true;
+      submit.innerHTML = "<span>＋</span> Configura Supabase";
     }
-  });
-  document.getElementById("refresh").addEventListener("click", loadInventory);
-  loadInventory();
+    document.getElementById("refresh").addEventListener("click", () => {
+      showStatus("Supabase no está configurado en producción.", true);
+    });
+  } else {
+    const supabase = createClient(
+      import.meta.env.PUBLIC_SUPABASE_URL,
+      import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+    );
+
+    const loadInventory = async () => {
+      const { data, error } = await supabase
+        .from("productos")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        inventory.innerHTML = `<p class="col-span-full border-2 border-red-drape p-6 font-mono text-xs">Catálogo sin stock disponible por el momento.</p>`;
+        return;
+      }
+
+      document.getElementById("productCount").textContent = data?.length ?? 0;
+      if (!data?.length) {
+        inventory.innerHTML =
+          '<p class="col-span-full border-2 border-dashed border-black/40 p-10 text-center font-mono text-xs text-ink-soft">Catálogo sin productos disponibles.</p>';
+        return;
+      }
+
+      inventory.innerHTML = data
+        .map((product) => {
+          const front = product.imagen || "";
+          const back = product.imagenAtras || "";
+          const date = product.created_at
+            ? new Date(product.created_at).toLocaleDateString("es-VE", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "Fecha no disponible";
+
+          return `<article class="overflow-hidden border-2 border-black bg-card shadow-[4px_4px_0_#14130d]">
+            <div class="relative aspect-[4/3] bg-[#d9d6cc]">
+              <img class="product-image h-full w-full object-cover" src="${front}" alt="${product.nombre || "Producto"}" data-front="${front}" data-back="${back}" />
+              <span class="absolute left-3 top-3 bg-ink px-2 py-1 font-mono text-[9px] font-bold uppercase text-cream">${product.enStock ? "En stock" : "Agotado"}</span>
+              ${back ? '<button type="button" class="absolute bottom-3 right-3 border border-black bg-cream px-2 py-1 font-mono text-[9px] font-bold uppercase" data-view>Ver trasera</button>' : ""}
+            </div>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="font-mono text-[9px] font-bold uppercase tracking-[0.15em] text-red-drape">${product.marca || "Sin marca"}</p>
+                  <h3 class="mt-1 font-display text-xl">${product.nombre || "Sin nombre"}</h3>
+                </div>
+                <p class="font-mono text-lg font-bold">$${Number(product.precioUSD || 0).toFixed(2)}</p>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-ink-soft">
+                <span>Tallas: ${product.tallas || "-"}</span>
+                <span>Alta: ${date}</span>
+              </div>
+              <div class="mt-5 grid grid-cols-2 gap-2">
+                <button type="button" class="border-2 border-black bg-ink px-2 py-3 font-mono text-[10px] font-bold uppercase text-cream hover:bg-red-drape" data-stock data-id="${product.id}" data-value="${product.enStock}">${product.enStock ? "Quitar stock" : "Poner en stock"}</button>
+                <button type="button" class="border-2 border-black bg-red-drape px-2 py-3 font-mono text-[10px] font-bold uppercase text-white hover:bg-ink" data-delete data-id="${product.id}">Eliminar</button>
+              </div>
+            </div>
+          </article>`;
+        })
+        .join("");
+
+      inventory.querySelectorAll("[data-view]").forEach((button) =>
+        button.addEventListener("click", () => {
+          const image = button.parentElement.querySelector("img");
+          const next =
+            image.src === image.dataset.back
+              ? image.dataset.front
+              : image.dataset.back;
+          image.src = next;
+          button.textContent =
+            image.src === image.dataset.back ? "Ver frontal" : "Ver trasera";
+        }),
+      );
+
+      inventory.querySelectorAll("[data-stock]").forEach((button) =>
+        button.addEventListener("click", async () => {
+          button.disabled = true;
+          const { error } = await supabase
+            .from("productos")
+            .update({ enStock: button.dataset.value !== "true" })
+            .eq("id", button.dataset.id);
+          if (error) showStatus(error.message, true);
+          else {
+            showStatus("Stock actualizado.");
+            loadInventory();
+          }
+        }),
+      );
+
+      inventory.querySelectorAll("[data-delete]").forEach((button) =>
+        button.addEventListener("click", async () => {
+          if (!confirm("¿Eliminar este producto definitivamente?")) return;
+          button.disabled = true;
+          const { error } = await supabase
+            .from("productos")
+            .delete()
+            .eq("id", button.dataset.id);
+          if (error) showStatus(error.message, true);
+          else {
+            showStatus("Producto eliminado.");
+            loadInventory();
+          }
+        }),
+      );
+    };
+
+    const uploadImage = async (file) => {
+      if (!file) return "";
+      const fileName = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+      const { error } = await supabase.storage
+        .from("imagenes-drape")
+        .upload(fileName, file);
+      if (error) throw error;
+      return supabase.storage.from("imagenes-drape").getPublicUrl(fileName).data
+        .publicUrl;
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const submit = form.querySelector("button[type=submit]");
+      submit.disabled = true;
+      submit.innerHTML = "Guardando...";
+      try {
+        const front = await uploadImage(frontInput.files[0]);
+        const back = await uploadImage(backInput.files[0]);
+        const { error } = await supabase.from("productos").insert({
+          nombre: document.getElementById("prodNombre").value,
+          marca: document.getElementById("prodMarca").value,
+          tallas: document.getElementById("prodTallas").value,
+          precioUSD: Number(document.getElementById("prodPrecio").value),
+          imagen: front,
+          imagenAtras: back || null,
+          enStock: document.getElementById("prodEnStock").checked,
+        });
+        if (error) throw error;
+        showStatus("Producto guardado correctamente.");
+        form.reset();
+        frontPreview.removeAttribute("src");
+        backPreview.removeAttribute("src");
+        loadInventory();
+      } catch (error) {
+        showStatus(`Error: ${error.message}`, true);
+      } finally {
+        submit.disabled = false;
+        submit.innerHTML = "<span>＋</span> Guardar producto";
+      }
+    });
+
+    document.getElementById("refresh").addEventListener("click", loadInventory);
+    loadInventory();
+  }
 </script>

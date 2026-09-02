@@ -2,14 +2,25 @@
 import { createClient } from "@supabase/supabase-js";
 import ProductCard from "./ProductCard.astro";
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
+const hasSupabaseConfig = Boolean(
+  import.meta.env.PUBLIC_SUPABASE_URL &&
   import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
 );
-const { data: rawProducts, error } = await supabase
-  .from("productos")
-  .select("*")
-  .order("created_at", { ascending: false });
+
+const supabase = hasSupabaseConfig
+  ? createClient(
+      import.meta.env.PUBLIC_SUPABASE_URL,
+      import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+    )
+  : null;
+
+const { data: rawProducts = [], error } = supabase
+  ? await supabase
+      .from("productos")
+      .select("*")
+      .order("created_at", { ascending: false })
+  : { data: [], error: null };
+
 const products = (rawProducts ?? []).map((entry) => ({
   slug: entry.id,
   name: entry.nombre ?? "Producto",
@@ -56,7 +67,12 @@ const products = (rawProducts ?? []).map((entry) => ({
     class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
   >
     {
-      !error && products.length > 0 ? (
+      !hasSupabaseConfig ? (
+        <p class="col-span-full py-10 text-center font-bold text-red-drape">
+          Configura PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY para activar
+          el catálogo en producción.
+        </p>
+      ) : !error && products.length > 0 ? (
         products.map((product) => (
           <div data-product-brand={product.brand}>
             <ProductCard {...product} />
