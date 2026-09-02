@@ -3,6 +3,15 @@ const hasSupabaseConfig = Boolean(
   (import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL) &&
   (import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY),
 );
+
+const bcvRate = Number(
+  import.meta.env.PUBLIC_BCV_RATE ?? import.meta.env.BCV_RATE ?? 145.32,
+);
+
+const formattedBcvRate = new Intl.NumberFormat("es-VE", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+}).format(bcvRate);
 ---
 
 <section
@@ -32,6 +41,12 @@ const hasSupabaseConfig = Boolean(
       <p class="text-sm leading-relaxed text-ink-soft sm:text-base">
         Essentials, Chrome Hearts, Corteiz y piezas raras para vestir sin ruido.
       </p>
+      <div
+        class="mt-3 inline-flex items-center gap-2 border-2 border-black bg-cream px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink"
+      >
+        <span class="inline-flex h-2 w-2 rounded-full bg-red-drape"></span>
+        Tasa BCV: {formattedBcvRate}
+      </div>
     </div>
   </div>
 
@@ -62,6 +77,13 @@ const hasSupabaseConfig = Boolean(
     import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL;
   const key =
     import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY;
+  const bcvRate = Number(
+    import.meta.env.PUBLIC_BCV_RATE ?? import.meta.env.BCV_RATE ?? 145.32,
+  );
+  const formattedBcvRate = new Intl.NumberFormat("es-VE", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(bcvRate);
 
   const openWhatsApp = (product) => {
     const mensaje = `Hola DRAPE, me interesa comprar la pieza: ${product.nombre || "Producto"}\nPrecio: $${Number(product.precioUSD || 0).toFixed(2)}\nTalla: ${product.tallas || "-"}\nReferencia visual: ${product.imagen || ""}`;
@@ -169,7 +191,7 @@ const hasSupabaseConfig = Boolean(
               </div>
 
               <div class="font-mono">
-                <span class="mt-2 block text-xs font-bold text-ink">Bs ${(Number(product.precioUSD || 0) * 37.5).toLocaleString("es-VE", { maximumFractionDigits: 0 })}</span>
+                <span class="mt-2 block text-xs font-bold text-ink">Bs ${(Number(product.precioUSD || 0) * bcvRate).toLocaleString("es-VE", { maximumFractionDigits: 0 })}</span>
               </div>
 
               <p class="font-mono text-xs font-medium text-ink-soft">Tallas: ${product.tallas || "-"}</p>
@@ -220,7 +242,7 @@ const hasSupabaseConfig = Boolean(
                     </div>
 
                     <div class="mt-2 font-mono text-base font-semibold text-ink-soft">
-                      <span class="block">Bs ${(Number(product.precioUSD || 0) * 37.5).toLocaleString("es-VE", { maximumFractionDigits: 0 })}</span>
+                      <span class="block">Bs ${(Number(product.precioUSD || 0) * bcvRate).toLocaleString("es-VE", { maximumFractionDigits: 0 })}</span>
                     </div>
 
                     <div class="mt-6">
