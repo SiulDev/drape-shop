@@ -1,31 +1,8 @@
 ---
-import ProductCard from "./ProductCard.astro";
-import { getSupabaseClient } from "../lib/supabase";
-
 const hasSupabaseConfig = Boolean(
   (import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL) &&
   (import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY),
 );
-
-const supabase = getSupabaseClient();
-
-const { data: rawProducts = [], error } = supabase
-  ? await supabase
-      .from("productos")
-      .select("*")
-      .order("created_at", { ascending: false })
-  : { data: [], error: null };
-
-const products = (rawProducts ?? []).map((entry) => ({
-  slug: entry.id,
-  name: entry.nombre ?? "Producto",
-  brand: entry.marca ?? "Sin marca",
-  sizes: entry.tallas ?? "",
-  price: entry.precioUSD ?? 0,
-  inStock: entry.enStock ?? false,
-  img: entry.imagen ?? "/images/og-preview.svg",
-  imgBack: entry.imagenAtras ?? "",
-}));
 ---
 
 <section
@@ -68,19 +45,239 @@ const products = (rawProducts ?? []).map((entry) => ({
           Configura PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY para activar
           el catálogo en producción.
         </p>
-      ) : !error && products.length > 0 ? (
-        products.map((product) => (
-          <div data-product-brand={product.brand}>
-            <ProductCard {...product} />
-          </div>
-        ))
       ) : (
         <p class="col-span-full py-10 text-center font-bold">
-          {error
-            ? "Catálogo sin stock disponible por el momento."
-            : "Catálogo sin productos disponibles."}
+          Cargando catálogo...
         </p>
       )
     }
   </div>
 </section>
+
+<script type="module">
+  import { createClient } from "@supabase/supabase-js";
+
+  const grid = document.getElementById("grid");
+  const url =
+    import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL;
+  const key =
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY;
+
+  const openWhatsApp = (product) => {
+    const mensaje = `Hola DRAPE, me interesa comprar la pieza: ${product.nombre || "Producto"}\nPrecio: $${Number(product.precioUSD || 0).toFixed(2)}\nTalla: ${product.tallas || "-"}\nReferencia visual: ${product.imagen || ""}`;
+    return `https://wa.me/584123401963?text=${encodeURIComponent(mensaje)}`;
+  };
+
+  const attachCardEvents = () => {
+    document.querySelectorAll("[data-product-image]").forEach((image) => {
+      const article = image.closest("article");
+      const modal = article?.nextElementSibling;
+      const modalImage = modal?.querySelector("[data-modal-image]");
+      const closeButton = modal?.querySelector("[data-close-modal]");
+      const viewButtons = modal?.querySelectorAll("[data-view-toggle]");
+
+      if (!modal || !modalImage) return;
+
+      const setView = (view) => {
+        const frente = modalImage.dataset.modalFrente;
+        const atras = modalImage.dataset.modalAtras;
+        const selectedView = view === "atras" && atras ? "atras" : "frente";
+
+        modalImage.dataset.current = selectedView;
+        modalImage.src = selectedView === "atras" ? atras : frente;
+
+        viewButtons?.forEach((button) => {
+          const isActive = button.dataset.viewToggle === selectedView;
+          button.classList.toggle("bg-ink", isActive);
+          button.classList.toggle("text-cream", isActive);
+          button.classList.toggle("bg-white", !isActive);
+          button.classList.toggle("text-black", !isActive);
+        });
+      };
+
+      image.addEventListener("click", () => {
+        modalImage.src = image.dataset.imagenFrente || image.src;
+        modalImage.dataset.current = "frente";
+        setView("frente");
+        modal.showModal();
+      });
+
+      closeButton?.addEventListener("click", () => modal.close());
+
+      viewButtons?.forEach((button) => {
+        button.addEventListener("click", () =>
+          setView(button.dataset.viewToggle),
+        );
+      });
+
+      modalImage.addEventListener("click", () => {
+        if (!modalImage.dataset.modalAtras) return;
+        const nextView =
+          modalImage.dataset.current === "atras" ? "frente" : "atras";
+        setView(nextView);
+      });
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) modal.close();
+      });
+    });
+  };
+
+  const renderProducts = (items) => {
+    if (!items?.length) {
+      grid.innerHTML =
+        '<p class="col-span-full py-10 text-center font-bold">Catálogo sin productos disponibles.</p>';
+      return;
+    }
+
+    const markup = items
+      .map((product) => {
+        const front = product.imagen || "/images/og-preview.svg";
+        const back = product.imagenAtras || "";
+        const tallas = (product.tallas || "")
+          .split(/[\s,]+/)
+          .map((t) => t.trim())
+          .filter(Boolean);
+        const price = Number(product.precioUSD || 0).toFixed(2);
+        const whatsappUrl = openWhatsApp(product);
+
+        return `
+          <article class="group flex h-full w-full flex-col rounded-2xl border-2 border-black bg-card p-3 shadow-lg shadow-black/15 transition-transform hover:-translate-y-1 sm:p-4">
+            <div class="relative aspect-4/5 overflow-hidden rounded-2xl border-2 border-black bg-card">
+              <img
+                src="${front}"
+                alt="${product.nombre || "Producto"}"
+                data-product-image
+                data-imagen-frente="${front}"
+                data-imagen-atras="${back}"
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full cursor-pointer object-cover transition-transform duration-500 hover:scale-105"
+              />
+              ${product.enStock ? "" : '<span class="absolute inset-0 bg-black/40"></span>'}
+            </div>
+
+            <div class="flex flex-1 flex-col gap-3 pt-4">
+              <h3 class="text-sm font-bold leading-snug text-ink sm:text-base">${product.nombre || "Producto"}</h3>
+              <p class="font-mono text-xs text-ink-soft">Tallas: ${product.tallas || "-"}</p>
+
+              <div class="flex items-center gap-3 font-mono">
+                <p class="text-xl font-bold leading-none text-ink">$${price}</p>
+                <span class="inline-block rounded-e-2xl border-2 border-black px-2 py-1 text-xs font-bold uppercase tracking-wider text-black">
+                  ${product.enStock ? "En stock" : "Agotado"}
+                </span>
+              </div>
+
+              <div class="font-mono">
+                <span class="mt-2 block text-xs font-bold text-ink">Bs ${(Number(product.precioUSD || 0) * 37.5).toLocaleString("es-VE", { maximumFractionDigits: 0 })}</span>
+              </div>
+
+              <p class="font-mono text-xs font-medium text-ink-soft">Tallas: ${product.tallas || "-"}</p>
+
+              ${
+                product.enStock
+                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-auto flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-ink px-3 py-3 text-center text-xs font-bold text-cream transition-colors hover:bg-red-drape">
+                      <svg viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
+                      Pedir por WhatsApp
+                    </a>`
+                  : `<button disabled class="mt-auto w-full cursor-not-allowed rounded-xl border-2 border-black bg-transparent px-3 py-2 text-center text-xs font-bold text-ink-soft">Sin stock</button>`
+              }
+            </div>
+          </article>
+
+          <dialog class="product-modal m-0 h-full max-h-none w-full max-w-none bg-transparent p-3 backdrop:bg-black/75 sm:p-5 md:p-8" data-product-modal>
+            <div class="flex h-full w-full items-center justify-center">
+              <div class="relative w-full max-w-5xl overflow-hidden rounded-[30px] border border-black/80 bg-[#f5f0e2] shadow-[0_30px_90px_rgba(20,19,13,0.18)]">
+                <button type="button" class="absolute right-4 top-4 z-20 rounded-full border border-black bg-cream px-3 py-2 text-xl font-bold leading-none text-black transition-colors hover:bg-red-drape hover:text-cream" data-close-modal aria-label="Cerrar detalle del producto">×</button>
+
+                <div class="grid gap-0 md:grid-cols-2">
+                  <div class="flex flex-col border-b border-black/70 bg-[#f3efe5] md:border-b-0 md:border-r">
+                    <div class="flex min-h-80 items-center justify-center bg-[#f7f4ed] p-4 sm:p-5 md:min-h-120 md:p-6">
+                      <img src="${front}" alt="${product.nombre || "Producto"}" data-modal-image data-modal-frente="${front}" data-modal-atras="${back}" data-current="frente" class="h-full max-h-[70vh] w-full cursor-pointer object-contain transition-opacity duration-300" />
+                    </div>
+
+                    ${
+                      back
+                        ? `<div class="flex items-center justify-center gap-2 border-t border-black/70 bg-[#f9f5ee] p-3">
+                            <button type="button" data-view-toggle="frente" class="rounded-full border border-black bg-ink px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-cream">Vista Frontal</button>
+                            <button type="button" data-view-toggle="atras" class="rounded-full border border-black bg-white px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-black">Vista Trasera</button>
+                          </div>`
+                        : `<div class="flex items-center justify-center border-t border-black/70 bg-[#f9f5ee] p-3"><span class="rounded-full border border-black bg-ink px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-cream">Vista Frontal</span></div>`
+                    }
+                  </div>
+
+                  <div class="flex flex-col justify-center bg-[#f5f0e2] p-5 sm:p-6 md:p-8">
+                    <div class="mb-4 inline-flex w-fit items-center gap-3 rounded-full border border-black/80 bg-[#f8f3ea] px-4 py-2 text-[10px] font-black uppercase tracking-[0.26em] text-ink shadow-sm sm:text-[11px]">
+                      <span class="inline-flex h-2.5 w-2.5 rounded-full bg-red-drape"></span>
+                      Drape Collection
+                    </div>
+
+                    <h2 class="text-2xl font-black leading-tight text-ink sm:text-3xl">${product.nombre || "Producto"}</h2>
+
+                    <div class="mt-5 flex items-end gap-3 font-mono">
+                      <p class="text-3xl font-black leading-none text-ink sm:text-4xl">$${price}</p>
+                      <span class="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink-soft">USD</span>
+                    </div>
+
+                    <div class="mt-2 font-mono text-base font-semibold text-ink-soft">
+                      <span class="block">Bs ${(Number(product.precioUSD || 0) * 37.5).toLocaleString("es-VE", { maximumFractionDigits: 0 })}</span>
+                    </div>
+
+                    <div class="mt-6">
+                      <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-ink-soft">Tallas disponibles</p>
+                      <div class="mt-3 flex flex-wrap gap-2">
+                        ${tallas.map((talla) => `<span class="inline-flex min-w-13 items-center justify-center rounded border border-black/80 bg-transparent px-3 py-1 text-sm font-bold text-ink">${talla}</span>`).join("") || '<span class="font-mono text-xs text-ink-soft">Sin tallas</span>'}
+                      </div>
+                    </div>
+
+                    <div class="mt-6 flex items-center justify-between gap-3 rounded-2xl border border-black/70 bg-[#efe9db] p-3">
+                      <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-ink-soft">Estado</span>
+                      <span class="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.14em] text-ink">
+                        <span class="mr-2 inline-block h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
+                        ${product.enStock ? "Disponible" : "Agotado"}
+                      </span>
+                    </div>
+
+                    ${
+                      product.enStock
+                        ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center gap-3 rounded-full border-2 border-black bg-black px-5 py-4 text-base font-bold text-cream transition-colors hover:bg-red-drape">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
+                            Pedir producto
+                          </a>`
+                        : `<button disabled class="mt-6 inline-flex cursor-not-allowed items-center justify-center rounded-full border-2 border-black bg-transparent px-5 py-4 text-base font-bold text-ink-soft">Producto agotado</button>`
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </dialog>
+        `;
+      })
+      .join("");
+
+    grid.innerHTML = markup;
+    attachCardEvents();
+  };
+
+  const syncCatalog = async () => {
+    if (!grid || !url || !key) {
+      return;
+    }
+
+    const client = createClient(url, key);
+    const { data, error } = await client
+      .from("productos")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      grid.innerHTML =
+        '<p class="col-span-full py-10 text-center font-bold">Catálogo sin stock disponible por el momento.</p>';
+      return;
+    }
+
+    renderProducts(data || []);
+  };
+
+  syncCatalog();
+</script>
