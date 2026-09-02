@@ -292,11 +292,11 @@ import Layout from "../layouts/Layout.astro";
 
 <script>
   // @ts-nocheck
-  import { createClient } from "@supabase/supabase-js";
+  import { getSupabaseClient } from "../lib/supabase";
 
   const hasSupabaseConfig = Boolean(
-    import.meta.env.PUBLIC_SUPABASE_URL &&
-    import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+    (import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL) &&
+    (import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY),
   );
 
   const form = document.getElementById("productoForm");
@@ -353,10 +353,7 @@ import Layout from "../layouts/Layout.astro";
       showStatus("Supabase no está configurado en producción.", true);
     });
   } else {
-    const supabase = createClient(
-      import.meta.env.PUBLIC_SUPABASE_URL,
-      import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
-    );
+    const supabase = getSupabaseClient();
 
     const loadInventory = async () => {
       const { data, error } = await supabase

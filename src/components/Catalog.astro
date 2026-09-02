@@ -1,18 +1,13 @@
 ---
-import { createClient } from "@supabase/supabase-js";
 import ProductCard from "./ProductCard.astro";
+import { getSupabaseClient } from "../lib/supabase";
 
 const hasSupabaseConfig = Boolean(
-  import.meta.env.PUBLIC_SUPABASE_URL &&
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  (import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL) &&
+  (import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY),
 );
 
-const supabase = hasSupabaseConfig
-  ? createClient(
-      import.meta.env.PUBLIC_SUPABASE_URL,
-      import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
-    )
-  : null;
+const supabase = getSupabaseClient();
 
 const { data: rawProducts = [], error } = supabase
   ? await supabase
