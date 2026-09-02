@@ -15,3 +15,12 @@ dist/
 
 # Netlify local
 .netlify
+
+# Videos
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.wmv
+*.flv
