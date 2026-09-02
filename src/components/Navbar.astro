@@ -3,10 +3,10 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
 ---
 
 <header
-  class="z-50 w-full px-4 pt-6 sm:px-6 fixed top-0 left-0 right-0 bg-black/95 backdrop-blur"
+  class="fixed left-0 right-0 top-0 z-50 w-full px-3 pt-4 sm:px-6 sm:pt-6"
 >
   <div
-    class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 rounded-full bg-black/95 px-4 py-3 text-cream shadow-lg shadow-ink/20 backdrop-blur sm:flex-nowrap sm:px-5"
+    class="mx-auto flex max-w-5xl items-center justify-between gap-2 rounded-full bg-black/95 px-3 py-3 text-cream shadow-lg shadow-ink/20 backdrop-blur sm:px-5"
   >
     <a href="/" class="flex shrink-0 items-center gap-2">
       <img src="/images/dp-logo.png" alt={SITE.name} class="h-6 w-auto" />
@@ -15,7 +15,9 @@ import { SITE, WHATSAPP_NUMBER } from "../config";
       >
     </a>
 
-    <nav class="flex items-center gap-6 text-sm font-medium text-cream">
+    <nav
+      class="hidden items-center gap-6 text-sm font-medium text-cream sm:flex"
+    >
       <a href="#como-comprar" class="transition-colors hover:text-red-drape"
         >Cómo comprar</a
       >
