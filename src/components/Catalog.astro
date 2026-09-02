@@ -83,3 +83,65 @@ const products = (rawProducts ?? []).map((entry) => ({
     }
   </div>
 </section>
+
+<script>
+  const grid = document.getElementById("grid");
+  const hasLiveConfig = Boolean(
+    (import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL) &&
+    (import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY),
+  );
+
+  if (grid && hasLiveConfig) {
+    const client = window.__DRAPE_SUPABASE__ ?? null;
+    const renderProducts = (items) => {
+      if (!items?.length) {
+        grid.innerHTML =
+          '<p class="col-span-full py-10 text-center font-bold">Catálogo sin productos disponibles.</p>';
+        return;
+      }
+
+      grid.innerHTML = items
+        .map(
+          (product) => `
+            <article class="overflow-hidden border-2 border-black bg-card shadow-[4px_4px_0_#14130d]">
+              <div class="relative aspect-[4/3] bg-[#d9d6cc]">
+                <img class="h-full w-full object-cover" src="${product.imagen || "/images/og-preview.svg"}" alt="${product.nombre || "Producto"}" />
+              </div>
+              <div class="p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="font-mono text-[9px] font-bold uppercase tracking-[0.15em] text-red-drape">${product.marca || "Sin marca"}</p>
+                    <h3 class="mt-1 font-display text-xl">${product.nombre || "Sin nombre"}</h3>
+                  </div>
+                  <p class="font-mono text-lg font-bold">$${Number(product.precioUSD || 0).toFixed(2)}</p>
+                </div>
+                <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] text-ink-soft">
+                  <span>Tallas: ${product.tallas || "-"}</span>
+                  <span>${product.enStock ? "En stock" : "Agotado"}</span>
+                </div>
+              </div>
+            </article>
+          `,
+        )
+        .join("");
+    };
+
+    const syncCatalog = async () => {
+      if (!client) return;
+      const { data, error } = await client
+        .from("productos")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        grid.innerHTML =
+          '<p class="col-span-full py-10 text-center font-bold">Catálogo sin stock disponible por el momento.</p>';
+        return;
+      }
+
+      renderProducts(data || []);
+    };
+
+    syncCatalog();
+  }
+</script>
