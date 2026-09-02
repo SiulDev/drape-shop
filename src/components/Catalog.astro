@@ -187,8 +187,8 @@ const fallbackBcvRate = Number(
         const whatsappUrl = openWhatsApp(product);
 
         return `
-          <article class="group flex h-full w-full flex-col rounded-2xl border-2 border-black bg-card p-3 shadow-lg shadow-black/15 transition-transform hover:-translate-y-1 sm:p-4">
-            <div class="relative aspect-4/5 overflow-hidden rounded-2xl border-2 border-black bg-card">
+          <article class="group flex h-full w-full select-none flex-col rounded-2xl border-2 border-black bg-[#f4efe4] p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] transition-transform duration-200 hover:-translate-y-1 sm:p-4">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-black bg-[#f4efe4]">
               <img
                 src="${front}"
                 alt="${product.nombre || "Producto"}"
@@ -197,42 +197,57 @@ const fallbackBcvRate = Number(
                 data-imagen-atras="${back}"
                 loading="lazy"
                 decoding="async"
-                class="h-full w-full cursor-pointer object-cover transition-transform duration-500 hover:scale-105"
+                class="h-full w-full cursor-pointer object-cover transition-transform duration-500 hover:scale-[1.05]"
               />
-              ${product.enStock ? "" : '<span class="absolute inset-0 bg-black/40"></span>'}
+              ${product.enStock ? "" : '<span class="absolute inset-0 bg-black/25"></span>'}
             </div>
 
             <div class="flex flex-1 flex-col gap-3 pt-4">
-              <h3 class="text-sm font-bold leading-snug text-ink sm:text-base">${product.nombre || "Producto"}</h3>
-              <p class="font-mono text-xs text-ink-soft">Tallas: ${product.tallas || "-"}</p>
+              <h3 class="text-lg font-bold leading-snug text-black sm:text-xl">${product.nombre || "Producto"}</h3>
 
-              <div class="flex items-center gap-3 font-mono">
-                <p class="text-xl font-bold leading-none text-ink">$${price}</p>
-                <span class="inline-block rounded-e-2xl border-2 border-black px-2 py-1 text-xs font-bold uppercase tracking-wider text-black">
-                  ${product.enStock ? "En stock" : "Agotado"}
+              <div class="font-mono">
+                <p class="text-xl font-extrabold leading-none text-black">$${price}</p>
+              </div>
+
+              <div class="font-mono text-[1rem] font-semibold leading-none text-black/80">${formatVes(vesValue)}</div>
+
+              <div class="mt-1 flex min-w-0 items-center gap-3">
+                <span class="shrink-0 font-mono text-xs font-bold uppercase tracking-[0.14em] text-black">Tallas</span>
+                <div class="flex min-w-0 flex-1 flex-wrap gap-2">
+                  ${
+                    tallas.length
+                      ? tallas
+                          .map(
+                            (talla) =>
+                              `<span class="inline-flex min-w-[2.8rem] items-center justify-center rounded-full border border-black bg-transparent px-3 py-1.5 text-[12px] font-semibold uppercase text-black">${talla}</span>`,
+                          )
+                          .join("")
+                      : '<span class="font-mono text-xs text-black/60">Sin tallas</span>'
+                  }
+                </div>
+              </div>
+
+              <div class="flex w-full items-center justify-between rounded-2xl border border-black px-3 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black">
+                <span>Estado</span>
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
+                  ${product.enStock ? "Disponible" : "Agotado"}
                 </span>
               </div>
 
-              <div class="rounded-xl border border-black/10 bg-[#f5f3ee] px-3 py-2 font-mono text-[11px] font-semibold text-ink">
-                <span class="block">$${price} USD</span>
-                <span class="mt-1 block text-gray-700">${formatVes(vesValue)}</span>
-              </div>
-
-              <p class="font-mono text-xs font-medium text-ink-soft">Tallas: ${product.tallas || "-"}</p>
-
               ${
                 product.enStock
-                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-auto flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-ink px-3 py-3 text-center text-xs font-bold text-cream transition-colors hover:bg-red-drape">
+                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-auto flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-black px-3 py-3 text-center text-xs font-bold text-white transition-colors duration-200 hover:bg-[#1f1f1f]">
                       <svg viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
                       Pedir por WhatsApp
                     </a>`
-                  : `<button disabled class="mt-auto w-full cursor-not-allowed rounded-xl border-2 border-black bg-transparent px-3 py-2 text-center text-xs font-bold text-ink-soft">Sin stock</button>`
+                  : `<button disabled class="mt-auto flex w-full items-center justify-center gap-2 rounded-xl border-2 border-black bg-black/60 px-3 py-3 text-center text-xs font-bold text-white">Sin stock</button>`
               }
             </div>
           </article>
 
-          <dialog class="product-modal m-0 h-full max-h-none w-full max-w-none bg-transparent p-3 backdrop:bg-black/75 sm:p-5 md:p-8" data-product-modal>
-            <div class="flex h-full w-full items-center justify-center">
+          <dialog class="product-modal select-none m-0 h-full max-h-none w-full max-w-none bg-transparent p-3 backdrop:bg-black/75 sm:p-5 md:p-8" data-product-modal>
+            <div class="flex h-full w-full select-none items-center justify-center">
               <div class="relative w-full max-w-5xl overflow-hidden rounded-[30px] border border-black/80 bg-[#f5f0e2] shadow-[0_30px_90px_rgba(20,19,13,0.18)]">
                 <button type="button" class="absolute right-4 top-4 z-20 rounded-full border border-black bg-cream px-3 py-2 text-xl font-bold leading-none text-black transition-colors hover:bg-red-drape hover:text-cream" data-close-modal aria-label="Cerrar detalle del producto">×</button>
 
@@ -248,49 +263,50 @@ const fallbackBcvRate = Number(
                             <button type="button" data-view-toggle="frente" class="rounded-full border border-black bg-ink px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-cream">Vista Frontal</button>
                             <button type="button" data-view-toggle="atras" class="rounded-full border border-black bg-white px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-black">Vista Trasera</button>
                           </div>`
-                        : `<div class="flex items-center justify-center border-t border-black/70 bg-[#f9f5ee] p-3"><span class="rounded-full border border-black bg-ink px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-cream">Vista Frontal</span></div>`
+                        : ""
                     }
                   </div>
 
-                  <div class="flex flex-col justify-center bg-[#f5f0e2] p-5 sm:p-6 md:p-8">
-                    <div class="mb-4 inline-flex w-fit items-center gap-3 rounded-full border border-black/80 bg-[#f8f3ea] px-4 py-2 text-[10px] font-black uppercase tracking-[0.26em] text-ink shadow-sm sm:text-[11px]">
+                  <div class="flex flex-col justify-center bg-transparent p-5 text-left sm:p-6 md:p-8">
+                    <div class="mb-4 inline-flex w-fit items-center gap-3 rounded-full border border-black/80 bg-transparent px-4 py-2 text-[10px] font-black uppercase tracking-[0.26em] text-black shadow-sm sm:text-[11px]">
                       <span class="inline-flex h-2.5 w-2.5 rounded-full bg-red-drape"></span>
                       Drape Collection
                     </div>
 
-                    <h2 class="text-2xl font-black leading-tight text-ink sm:text-3xl">${product.nombre || "Producto"}</h2>
+                    <h2 class="text-2xl font-black leading-tight text-black sm:text-3xl">${product.nombre || "Producto"}</h2>
 
-                    <div class="mt-5 flex items-end gap-3 font-mono">
-                      <p class="text-3xl font-black leading-none text-ink sm:text-4xl">$${price}</p>
-                      <span class="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink-soft">USD</span>
-                    </div>
-
-                    <div class="mt-2 rounded-2xl border border-black/10 bg-[#efe9db] px-4 py-3 font-mono text-base font-semibold text-ink-soft">
-                      <span class="block">$${price} USD | ${formatVes(usdValue * bcvRate)}</span>
+                    <div class="mt-3 font-mono text-black">
+                      <p class="flex items-baseline gap-3 text-4xl font-extrabold tracking-tight">
+                        <span>$${price}</span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em]">USD</span>
+                      </p>
+                      <p class="mt-1 text-lg font-bold">${formatVes(vesValue)}</p>
                     </div>
 
                     <div class="mt-6">
-                      <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-ink-soft">Tallas disponibles</p>
+                      <p class="font-mono text-xs font-bold uppercase tracking-[0.16em] text-black">Tallas disponibles</p>
                       <div class="mt-3 flex flex-wrap gap-2">
-                        ${tallas.map((talla) => `<span class="inline-flex min-w-13 items-center justify-center rounded border border-black/80 bg-transparent px-3 py-1 text-sm font-bold text-ink">${talla}</span>`).join("") || '<span class="font-mono text-xs text-ink-soft">Sin tallas</span>'}
+                        ${tallas.map((talla) => `<span class="inline-flex min-w-13 items-center justify-center rounded-full border border-black bg-transparent px-4 py-1 text-sm font-semibold uppercase text-black">${talla}</span>`).join("") || '<span class="font-mono text-xs text-black/60">Sin tallas</span>'}
                       </div>
                     </div>
 
-                    <div class="mt-6 flex items-center justify-between gap-3 rounded-2xl border border-black/70 bg-[#efe9db] p-3">
-                      <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-ink-soft">Estado</span>
-                      <span class="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.14em] text-ink">
-                        <span class="mr-2 inline-block h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
+                    <div class="mt-6 flex w-full items-center justify-between rounded-2xl border border-black px-3 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black">
+                      <span>Estado</span>
+                      <span class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
                         ${product.enStock ? "Disponible" : "Agotado"}
                       </span>
                     </div>
 
                     ${
                       product.enStock
-                        ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center justify-center gap-3 rounded-full border-2 border-black bg-black px-5 py-4 text-base font-bold text-cream transition-colors hover:bg-red-drape">
-                            <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
-                            Pedir producto
+                        ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-6 w-full rounded-full border-2 border-black bg-black px-5 py-4 text-center text-base font-bold text-cream transition-colors hover:bg-gray-800">
+                            <span class="inline-flex items-center justify-center gap-3">
+                              <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
+                              Pedir producto
+                            </span>
                           </a>`
-                        : `<button disabled class="mt-6 inline-flex cursor-not-allowed items-center justify-center rounded-full border-2 border-black bg-transparent px-5 py-4 text-base font-bold text-ink-soft">Producto agotado</button>`
+                        : `<button disabled class="mt-6 w-full cursor-not-allowed rounded-full border-2 border-black bg-transparent px-5 py-4 text-base font-bold text-black/60">Producto agotado</button>`
                     }
                   </div>
                 </div>
