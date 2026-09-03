@@ -3,10 +3,6 @@ const hasSupabaseConfig = Boolean(
   (import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL) &&
   (import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY),
 );
-
-const fallbackBcvRate = Number(
-  import.meta.env.PUBLIC_BCV_RATE ?? import.meta.env.BCV_RATE ?? 145.32,
-);
 ---
 
 <section
@@ -41,7 +37,7 @@ const fallbackBcvRate = Number(
 
   <div
     id="grid"
-    class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+    class="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 xl:grid-cols-4"
   >
     {
       !hasSupabaseConfig ? (
@@ -66,42 +62,11 @@ const fallbackBcvRate = Number(
     import.meta.env.PUBLIC_SUPABASE_URL ?? import.meta.env.SUPABASE_URL;
   const key =
     import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? import.meta.env.SUPABASE_KEY;
-  const fallbackBcvRate = Number(
-    import.meta.env.PUBLIC_BCV_RATE ?? import.meta.env.BCV_RATE ?? 145.32,
-  );
-
   const formatUsd = (value) =>
     `$${Number(value || 0).toLocaleString("es-VE", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })} USD`;
-
-  const formatVes = (value) =>
-    `${Number(value || 0).toLocaleString("es-VE", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })} VES`;
-
-  const fetchOfficialBcvRate = async () => {
-    try {
-      const response = await fetch(
-        "https://ve.dolarapi.com/v1/dolares/oficial",
-      );
-
-      if (!response.ok) throw new Error("BCV fetch failed");
-
-      const data = await response.json();
-      const rate = Number(data?.promedio ?? data?.price ?? 0);
-
-      if (Number.isFinite(rate) && rate > 0) {
-        return rate;
-      }
-
-      throw new Error("BCV price missing");
-    } catch (error) {
-      return fallbackBcvRate;
-    }
-  };
 
   const openWhatsApp = (product) => {
     const mensaje = `Hola DRAPE, me interesa comprar la pieza: ${product.nombre || "Producto"}\nPrecio: $${Number(product.precioUSD || 0).toFixed(2)}\nTalla: ${product.tallas || "-"}\nReferencia visual: ${product.imagen || ""}`;
@@ -163,7 +128,7 @@ const fallbackBcvRate = Number(
     });
   };
 
-  const renderProducts = (items, bcvRate = fallbackBcvRate) => {
+  const renderProducts = (items) => {
     if (!items?.length) {
       grid.innerHTML =
         '<p class="col-span-full py-10 text-center font-bold">Catálogo sin productos disponibles.</p>';
@@ -183,11 +148,10 @@ const fallbackBcvRate = Number(
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         });
-        const vesValue = usdValue * bcvRate;
         const whatsappUrl = openWhatsApp(product);
 
         return `
-          <article class="group flex h-full w-full select-none flex-col rounded-2xl border-2 border-black bg-[#f4efe4] p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] transition-transform duration-200 hover:-translate-y-1 sm:p-4">
+          <article class="group flex h-full w-full select-none flex-col rounded-2xl border-2 border-black bg-[#f4efe4] p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] transition-transform duration-200 hover:-translate-y-1 md:p-5">
             <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-black bg-[#f4efe4]">
               <img
                 src="${front}"
@@ -203,13 +167,11 @@ const fallbackBcvRate = Number(
             </div>
 
             <div class="flex flex-1 flex-col gap-3 pt-4">
-              <h3 class="text-lg font-bold leading-snug text-black sm:text-xl">${product.nombre || "Producto"}</h3>
+              <h3 class="text-sm md:text-xl font-bold line-clamp-2 min-h-[2.5rem] md:min-h-[3.5rem] leading-snug text-black">${product.nombre || "Producto"}</h3>
 
               <div class="font-mono">
-                <p class="text-xl font-extrabold leading-none text-black">$${price}</p>
+                <p class="text-lg md:text-3xl font-mono font-extrabold leading-none text-black">$${price}</p>
               </div>
-
-              <div class="font-mono text-[1rem] font-semibold leading-none text-black/80">${formatVes(vesValue)}</div>
 
               <div class="mt-1 flex min-w-0 items-center gap-3">
                 <span class="shrink-0 font-mono text-xs font-bold uppercase tracking-[0.14em] text-black">Tallas</span>
@@ -219,7 +181,7 @@ const fallbackBcvRate = Number(
                       ? tallas
                           .map(
                             (talla) =>
-                              `<span class="inline-flex min-w-[2.8rem] items-center justify-center rounded-full border border-black bg-transparent px-3 py-1.5 text-[12px] font-semibold uppercase text-black">${talla}</span>`,
+                              `<span class="inline-flex min-w-[2.8rem] items-center justify-center rounded-full border border-black bg-transparent px-1.5 py-0.5 md:px-3 md:py-1 text-[10px] md:text-sm font-semibold uppercase text-black">${talla}</span>`,
                           )
                           .join("")
                       : '<span class="font-mono text-xs text-black/60">Sin tallas</span>'
@@ -237,7 +199,7 @@ const fallbackBcvRate = Number(
 
               ${
                 product.enStock
-                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-auto flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-black px-3 py-3 text-center text-xs font-bold text-white transition-colors duration-200 hover:bg-[#1f1f1f]">
+                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-auto flex w-full items-center justify-center gap-2 rounded-xl border-2 border-black bg-black p-2 text-center text-xs font-bold text-white transition-colors duration-200 hover:bg-[#1f1f1f] md:p-3 md:text-base">
                       <svg viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
                       Pedir por WhatsApp
                     </a>`
@@ -253,8 +215,8 @@ const fallbackBcvRate = Number(
 
                 <div class="grid gap-0 md:grid-cols-2">
                   <div class="flex flex-col border-b border-black/70 bg-[#f3efe5] md:border-b-0 md:border-r">
-                    <div class="flex min-h-80 items-center justify-center bg-[#f7f4ed] p-4 sm:p-5 md:min-h-120 md:p-6">
-                      <img src="${front}" alt="${product.nombre || "Producto"}" data-modal-image data-modal-frente="${front}" data-modal-atras="${back}" data-current="frente" class="h-full max-h-[70vh] w-full cursor-pointer object-contain transition-opacity duration-300" />
+                    <div class="aspect-square w-full overflow-hidden bg-[#f7f4ed] p-4 sm:p-5 md:p-6">
+                      <img src="${front}" alt="${product.nombre || "Producto"}" data-modal-image data-modal-frente="${front}" data-modal-atras="${back}" data-current="frente" class="h-full w-full cursor-pointer object-cover object-center transition-opacity duration-300" />
                     </div>
 
                     ${
@@ -280,7 +242,6 @@ const fallbackBcvRate = Number(
                         <span>$${price}</span>
                         <span class="text-[10px] font-bold uppercase tracking-[0.2em]">USD</span>
                       </p>
-                      <p class="mt-1 text-lg font-bold">${formatVes(vesValue)}</p>
                     </div>
 
                     <div class="mt-6">
@@ -338,8 +299,7 @@ const fallbackBcvRate = Number(
       return;
     }
 
-    const bcvRate = await fetchOfficialBcvRate();
-    renderProducts(data || [], bcvRate);
+    renderProducts(data || []);
   };
 
   syncCatalog();

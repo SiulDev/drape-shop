@@ -12,24 +12,33 @@ const steps = [
   },
   {
     n: "03",
+    title: "PAGOS QUINCENALES",
+    text: "Te la llevas y pagas después. Consulta nuestras opciones de financiamiento.",
+  },
+  {
+    n: "04",
     title: "Coordinamos entrega",
-    text: "Confirmamos pago (USD o Bs) y punto de entrega o envío.",
+    text: "Confirmamos el pago y el punto de entrega o envío.",
   },
 ];
 ---
 
 <section id="como-comprar" class="bg-ink text-cream">
   <div
-    class="mx-auto grid max-w-5xl grid-cols-1 gap-16 px-5 py-16 sm:px-6 sm:grid-cols-3"
+    class="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-5 py-16 sm:px-6 md:grid-cols-2 xl:max-w-[1400px] xl:grid-cols-4"
   >
     {
       steps.map((s) => (
-        <div>
-          <p class="font-display text-3xl text-cream/25 mb-2">{s.n}</p>
+        <div class="border-2 border-black rounded-xl bg-[#F5F5DC] p-6 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:p-7 xl:p-8">
+          <p class="font-display text-3xl text-black/60 mb-2 md:text-black/50">
+            {s.n}
+          </p>
           <h3 class="font-mono text-xs uppercase tracking-wider text-red-drape mb-2">
             {s.title}
           </h3>
-          <p class="text-sm text-cream/70 leading-relaxed">{s.text}</p>
+          <p class="text-sm text-black/80 leading-relaxed md:text-black/75">
+            {s.text}
+          </p>
         </div>
       ))
     }

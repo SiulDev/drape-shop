@@ -1,6 +1,4 @@
 ---
-import { BS_RATE } from "../config";
-
 interface Props {
   slug: string;
   name: string;
@@ -48,28 +46,22 @@ const tallasArray = tallas
     {!product.inStock && <span class="absolute inset-0 bg-black/25" />}
   </div>
 
-  <div class="flex h-full flex-col gap-4 p-4 sm:p-5">
+  <div class="flex h-full flex-col gap-4 p-3 md:p-5">
     <h3
-      class="line-clamp-2 min-h-[3rem] text-lg font-bold uppercase leading-tight text-black"
+      class="text-sm md:text-xl font-bold line-clamp-2 min-h-[2.5rem] md:min-h-[3.5rem] uppercase leading-tight text-black"
     >
       {name}
     </h3>
 
     <div class="mt-1 flex items-start justify-between gap-3">
       <div class="flex flex-col bg-transparent font-mono">
-        <p class="text-3xl font-extrabold text-black">${precioUSD}</p>
-        <p class="mt-1 text-lg font-bold text-black">
-          {
-            (precioUSD * BS_RATE).toLocaleString("es-VE", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          } VES
+        <p class="text-lg md:text-3xl font-mono font-extrabold text-black">
+          ${precioUSD}
         </p>
       </div>
 
       <div
-        class="mt-1 rounded-sm border-2 border-black bg-transparent px-2 py-1 text-[10px] font-bold uppercase text-black"
+        class="mt-1 rounded-sm border-2 border-black bg-transparent px-1 py-1 text-[8px] font-bold uppercase text-black md:px-2 md:text-[10px]"
       >
         {product.inStock ? "EN STOCK" : "AGOTADO"}
       </div>
@@ -87,7 +79,7 @@ const tallasArray = tallas
           {
             tallasArray.length > 0 ? (
               tallasArray.map((talla) => (
-                <span class="inline-flex min-w-[2.5rem] items-center justify-center border-2 border-black bg-transparent px-3 py-1 text-sm font-bold uppercase text-black">
+                <span class="inline-flex min-w-[2.5rem] items-center justify-center border-2 border-black bg-transparent px-1.5 py-0.5 text-[10px] font-bold uppercase text-black md:px-3 md:py-1 md:text-sm">
                   {talla}
                 </span>
               ))
@@ -104,7 +96,7 @@ const tallasArray = tallas
             href={hrefWhatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full rounded-lg border-2 border-black bg-black px-3 py-3 text-center text-sm font-bold text-white transition-colors duration-200 hover:bg-gray-800"
+            class="w-full rounded-lg border-2 border-black bg-black p-2 text-center text-xs font-bold text-white transition-colors duration-200 hover:bg-gray-800 md:p-3 md:text-base"
           >
             Pedir por WhatsApp
           </a>
@@ -143,7 +135,7 @@ const tallasArray = tallas
           class="flex flex-col border-b border-black/70 bg-[#f3efe5] md:border-b-0 md:border-r"
         >
           <div
-            class="flex min-h-80 items-center justify-center bg-[#f7f4ed] p-4 sm:p-5 md:min-h-120 md:p-6"
+            class="aspect-square w-full overflow-hidden bg-[#f7f4ed] p-4 sm:p-5 md:p-6"
           >
             <img
               src={imagen}
@@ -152,7 +144,7 @@ const tallasArray = tallas
               data-modal-frente={imagen}
               data-modal-atras={imagenAtras}
               data-current="frente"
-              class="h-full max-h-[70vh] w-full cursor-pointer object-contain transition-opacity duration-300"
+              class="h-full w-full cursor-pointer object-cover object-center transition-opacity duration-300"
             />
           </div>
 
@@ -189,14 +181,6 @@ const tallasArray = tallas
             <div class="flex flex-col bg-transparent font-mono">
               <p class="text-4xl font-extrabold tracking-tight text-black">
                 ${precioUSD}
-              </p>
-              <p class="mt-1 text-lg font-bold text-black">
-                {
-                  (precioUSD * BS_RATE).toLocaleString("es-VE", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })
-                } VES
               </p>
             </div>
 

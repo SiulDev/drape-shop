@@ -7,6 +7,7 @@
   Cambia un valor hex y se propaga a todo el sitio automáticamente.
    ============================================================ */
 @theme {
+  --animate-marquee: marquee 18s linear infinite;
   --color-cream: #efeada; /* fondo general del sitio */
   --color-cream-dark: #e2dcc7; /* variante de fondo, para hover/contraste sutil */
   --color-card: #e8e5da; /* fondo de las tarjetas de producto */
