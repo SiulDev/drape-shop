@@ -167,21 +167,21 @@ const hasSupabaseConfig = Boolean(
             </div>
 
             <div class="flex flex-1 flex-col gap-3 pt-4">
-              <h3 class="text-sm md:text-xl font-bold line-clamp-2 min-h-[2.5rem] md:min-h-[3.5rem] leading-snug text-black">${product.nombre || "Producto"}</h3>
+              <h3 class="text-xs md:text-lg font-bold leading-tight line-clamp-2 min-h-[2rem] md:min-h-[3rem] text-black">${product.nombre || "Producto"}</h3>
 
               <div class="font-mono">
-                <p class="text-lg md:text-3xl font-mono font-extrabold leading-none text-black">$${price}</p>
+                <p class="text-lg md:text-2xl font-mono font-extrabold text-black">$${price}</p>
               </div>
 
               <div class="mt-1 flex min-w-0 items-center gap-3">
                 <span class="shrink-0 font-mono text-xs font-bold uppercase tracking-[0.14em] text-black">Tallas</span>
-                <div class="flex min-w-0 flex-1 flex-wrap gap-2">
+                <div class="flex min-w-0 flex-1 flex-wrap items-center gap-1.5 mt-2">
                   ${
                     tallas.length
                       ? tallas
                           .map(
                             (talla) =>
-                              `<span class="inline-flex min-w-[2.8rem] items-center justify-center rounded-full border border-black bg-transparent px-1.5 py-0.5 md:px-3 md:py-1 text-[10px] md:text-sm font-semibold uppercase text-black">${talla}</span>`,
+                              `<span class="border border-black px-1.5 py-0.5 text-[9px] md:text-xs font-bold uppercase rounded-full bg-transparent text-black whitespace-nowrap">${talla}</span>`,
                           )
                           .join("")
                       : '<span class="font-mono text-xs text-black/60">Sin tallas</span>'
@@ -189,19 +189,19 @@ const hasSupabaseConfig = Boolean(
                 </div>
               </div>
 
-              <div class="flex w-full items-center justify-between rounded-2xl border border-black px-3 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black">
-                <span>Estado</span>
+              <div class="flex items-center justify-between w-full border-2 border-black rounded-full px-2 py-1 md:px-3 md:py-1.5 mt-2 overflow-hidden">
+                <span class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">Estado</span>
                 <span class="flex items-center gap-2">
                   <span class="h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
-                  ${product.enStock ? "Disponible" : "Agotado"}
+                  <span class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">${product.enStock ? "Disponible" : "Agotado"}</span>
                 </span>
               </div>
 
               ${
                 product.enStock
-                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="mt-auto flex w-full items-center justify-center gap-2 rounded-xl border-2 border-black bg-black p-2 text-center text-xs font-bold text-white transition-colors duration-200 hover:bg-[#1f1f1f] md:p-3 md:text-base">
+                  ? `<a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="w-full bg-black text-white font-bold py-2 md:py-3 px-1 rounded-lg hover:bg-gray-800 transition-colors flex justify-center items-center gap-1 md:gap-2 mt-2">
                       <svg viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2" /></svg>
-                      Pedir por WhatsApp
+                      <span class="text-[10px] md:text-sm whitespace-nowrap">Pedir por WhatsApp</span>
                     </a>`
                   : `<button disabled class="mt-auto flex w-full items-center justify-center gap-2 rounded-xl border-2 border-black bg-black/60 px-3 py-3 text-center text-xs font-bold text-white">Sin stock</button>`
               }
@@ -251,11 +251,11 @@ const hasSupabaseConfig = Boolean(
                       </div>
                     </div>
 
-                    <div class="mt-6 flex w-full items-center justify-between rounded-2xl border border-black px-3 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black">
-                      <span>Estado</span>
+                    <div class="flex items-center justify-between w-full border-2 border-black rounded-full px-2 py-1 md:px-3 md:py-1.5 mt-2 overflow-hidden">
+                      <span class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">Estado</span>
                       <span class="flex items-center gap-2">
                         <span class="h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
-                        ${product.enStock ? "Disponible" : "Agotado"}
+                        <span class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">${product.enStock ? "Disponible" : "Agotado"}</span>
                       </span>
                     </div>
 
