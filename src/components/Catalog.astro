@@ -151,8 +151,8 @@ const hasSupabaseConfig = Boolean(
         const whatsappUrl = openWhatsApp(product);
 
         return `
-          <article class="group flex h-full w-full select-none flex-col rounded-2xl border-2 border-black bg-[#f4efe4] p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] transition-transform duration-200 hover:-translate-y-1 md:p-5">
-            <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-black bg-[#f4efe4]">
+          <article class="group flex h-full w-full select-none flex-col rounded-2xl border-2 border-black bg-[#f4efe4] p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] transition-transform duration-200 hover:-translate-y-1 md:p-5">
+            <div class="relative mb-2 aspect-[4/5] overflow-hidden rounded-2xl border-2 border-black bg-[#f4efe4] md:mb-4">
               <img
                 src="${front}"
                 alt="${product.nombre || "Producto"}"
@@ -167,15 +167,15 @@ const hasSupabaseConfig = Boolean(
             </div>
 
             <div class="flex flex-1 flex-col gap-3 pt-4">
-              <h3 class="text-xs md:text-lg font-bold leading-tight line-clamp-2 min-h-[2rem] md:min-h-[3rem] text-black">${product.nombre || "Producto"}</h3>
+              <h3 class="text-sm md:text-lg font-bold leading-tight line-clamp-2 min-h-[2.5rem] md:min-h-[3rem] text-black">${product.nombre || "Producto"}</h3>
 
               <div class="font-mono">
-                <p class="text-lg md:text-2xl font-mono font-extrabold text-black">$${price}</p>
+                <p class="text-base md:text-2xl font-mono font-extrabold text-black">$${price}</p>
               </div>
 
               <div class="mt-1 flex min-w-0 items-center gap-3">
-                <span class="shrink-0 font-mono text-xs font-bold uppercase tracking-[0.14em] text-black">Tallas</span>
-                <div class="flex min-w-0 flex-1 flex-wrap items-center gap-1.5 mt-2">
+                <span class="shrink-0 font-mono text-[9px] md:text-xs mr-1 font-bold uppercase tracking-[0.14em] text-black">Tallas</span>
+                <div class="flex min-w-0 flex-1 flex-wrap gap-1 items-center">
                   ${
                     tallas.length
                       ? tallas
@@ -189,8 +189,8 @@ const hasSupabaseConfig = Boolean(
                 </div>
               </div>
 
-              <div class="flex items-center justify-between w-full border-2 border-black rounded-full px-2 py-1 md:px-3 md:py-1.5 mt-2 overflow-hidden">
-                <span class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">Estado</span>
+              <div class="flex items-center justify-between w-full border-2 border-black rounded-full px-1.5 py-0.5 md:px-3 md:py-1.5 text-[9px] md:text-xs mt-2 overflow-hidden">
+                <span class="hidden md:inline mr-1 font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">Estado</span>
                 <span class="flex items-center gap-2">
                   <span class="h-2 w-2 rounded-full ${product.enStock ? "bg-green-500" : "bg-red-500"}"></span>
                   <span class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.16em] text-black">${product.enStock ? "Disponible" : "Agotado"}</span>

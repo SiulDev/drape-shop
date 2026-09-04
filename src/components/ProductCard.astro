@@ -30,7 +30,7 @@ const tallasArray = tallas
   class="group flex h-full w-full select-none flex-col overflow-hidden rounded-2xl border-2 border-black bg-[#f4efe4] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform duration-200 hover:-translate-y-0.5"
 >
   <div
-    class="relative aspect-[4/5] overflow-hidden border-b-2 border-black bg-[#e8e1d3]"
+    class="relative mb-2 aspect-[4/5] overflow-hidden border-b-2 border-black bg-[#e8e1d3] md:mb-4"
   >
     <img
       src={imagen}
@@ -46,16 +46,16 @@ const tallasArray = tallas
     {!product.inStock && <span class="absolute inset-0 bg-black/25" />}
   </div>
 
-  <div class="flex h-full flex-col gap-4 p-3 md:p-5">
+  <div class="flex h-full flex-col gap-4 p-2 md:p-5">
     <h3
-      class="text-xs md:text-lg font-bold leading-tight line-clamp-2 min-h-[2rem] md:min-h-[3rem] uppercase text-black"
+      class="text-sm md:text-lg font-bold leading-tight line-clamp-2 min-h-[2.5rem] md:min-h-[3rem] uppercase text-black"
     >
       {name}
     </h3>
 
     <div class="mt-1 flex items-start justify-between gap-3">
       <div class="flex flex-col bg-transparent font-mono">
-        <p class="text-lg md:text-2xl font-mono font-extrabold text-black">
+        <p class="text-base md:text-2xl font-mono font-extrabold text-black">
           ${precioUSD}
         </p>
       </div>
@@ -70,12 +70,12 @@ const tallasArray = tallas
     <div class="mt-auto flex flex-col gap-3 pt-4">
       <div class="flex flex-col gap-2">
         <p
-          class="font-mono text-[12px] font-bold uppercase tracking-[0.18em] text-black/70"
+          class="font-mono text-[9px] md:text-xs mr-1 font-bold uppercase tracking-[0.18em] text-black/70"
         >
           TALLAS
         </p>
 
-        <div class="flex flex-wrap items-center gap-1.5 mt-2">
+        <div class="flex flex-wrap gap-1 items-center">
           {
             tallasArray.length > 0 ? (
               tallasArray.map((talla) => (
@@ -204,12 +204,12 @@ const tallasArray = tallas
           </div>
 
           <div
-            class="flex items-center justify-between w-full border-2 border-black rounded-full px-2 py-1 md:px-3 md:py-1.5 mt-2 overflow-hidden"
+            class="flex items-center justify-between w-full border-2 border-black rounded-full px-1.5 py-0.5 md:px-3 md:py-1.5 text-[9px] md:text-xs mt-2 overflow-hidden"
           >
             <span
               class="text-[8px] md:text-xs font-bold whitespace-nowrap uppercase tracking-[0.2em] text-black"
             >
-              ESTADO
+              <span class="hidden md:inline mr-1">ESTADO</span>
             </span>
             <div class="flex items-center gap-2">
               <span class="inline-block h-2.5 w-2.5 rounded-full bg-green-500"
